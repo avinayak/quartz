@@ -7,17 +7,17 @@ outline tracing, or rasterized outline fonts are included.
 
 | Collection | Included faces | Upstream license |
 | --- | --- | --- |
-| Spleen | All six native sizes | BSD-2-Clause |
-| Tamzen | Regular, bold, and Powerline versions at all seven sizes | Tamsyn/Tamzen permissive license |
-| Cozette | Regular and crossed-seven variant | MIT |
-| Scientifica | Regular, bold, italic | SIL OFL 1.1 |
-| Creep | Original bitmap strike | MIT |
-| Cherry | Regular and bold at four sizes | ISC-style permissive license |
-| Kirsch | Original bitmap strike | SIL OFL 1.1 |
-| Proggy | Original Proggy and Webby bitmap variants | MIT |
-| Gohufont | Unicode regular and bold at both native sizes | WTFPL v2 |
-| ProFont | All seven native strikes in the OTB distribution | MIT |
-| X11 Fixed | Unicode regular, bold, oblique, narrow and wide variants | Public domain |
+| [Spleen](https://github.com/fcambus/spleen) | All six native sizes | BSD-2-Clause |
+| [Tamzen](https://github.com/sunaku/tamzen-font) | Regular, bold, and Powerline versions at all seven sizes | Tamsyn/Tamzen permissive license |
+| [Cozette](https://github.com/the-moonwitch/Cozette) | Regular and crossed-seven variant | MIT |
+| [Scientifica](https://github.com/oppiliappan/scientifica) | Regular, bold, italic | SIL OFL 1.1 |
+| [Creep](https://github.com/romeovs/creep) | Original bitmap strike | MIT |
+| [Cherry](https://github.com/turquoise-hexagon/cherry) | Regular and bold at four sizes | ISC-style permissive license |
+| [Kirsch](https://github.com/molarmanful/kirsch) | Original bitmap strike | SIL OFL 1.1 |
+| [Proggy](https://github.com/bluescan/proggyfonts) | Original Proggy and Webby bitmap variants | MIT |
+| [Gohufont](https://github.com/hchargois/gohufont) | Unicode regular and bold at both native sizes | WTFPL v2 |
+| [ProFont](https://tobiasjung.name/downloadfile.php?file=profont-otb-2.zip) | All seven native strikes in the OTB distribution | MIT |
+| [X11 Fixed](https://www.cl.cam.ac.uk/~mgk25/download/ucs-fonts.tar.gz) | Unicode regular, bold, oblique, narrow and wide variants | Public domain |
 
 `manifest.json` records the exact upstream repository revisions or archive
 hashes, source paths and SHA-256 checksums, display families, and license paths.

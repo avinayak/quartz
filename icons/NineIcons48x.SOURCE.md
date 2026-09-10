@@ -2,6 +2,9 @@
 
 - Upstream: https://store.kde.org/p/1749686
 - Author: `drgordbord`
+- Original NineIcons: [grassmunk/Platinum9](https://github.com/grassmunk/Platinum9),
+  in the [NineIcons directory](https://github.com/grassmunk/Platinum9/tree/master/NineIcons)
+- Additional upstream credit: [grassmunk/Chicago95](https://github.com/grassmunk/Chicago95)
 - Release asset: `NineIcons48x.tar.gz`, version 1.3, published 2023-05-23
 - SHA-256: `ff40560cc92d633d25ba4bf824da0ed2261b1f6c00be3bf8f27e63cb3f941897`
 - License: the upstream listing identifies the release as GPLv3

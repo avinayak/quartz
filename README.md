@@ -61,12 +61,36 @@ git pull --ff-only
 Log out and back in if the installer requests it. ZIP users can download and
 extract a fresh copy and run its installer.
 
-## Compatibility and credits
+## Compatibility
 
 Quartz styles shared desktop and toolkit components. Applications with custom
 interfaces may retain some of their own appearance. See the
 [theme notes](theme/Quartz-System6/README.md) and
 [Quartz Settings guide](quartz-settings/README.md) for details.
+
+## Credits
+
+Quartz builds on the work of these projects, artists, and maintainers:
+
+- **[NineIcons / Platinum9](https://github.com/grassmunk/Platinum9)** by
+  **grassmunk and contributors** — the original NineIcons icon set, available
+  in the repository's [NineIcons folder](https://github.com/grassmunk/Platinum9/tree/master/NineIcons).
+- **[Nine Icons 48X](https://store.kde.org/p/1749686)** by **drgordbord** — the
+  enhanced icon pack bundled with Quartz. Its upstream credits include NineIcons,
+  Platinum9, and [Chicago95](https://github.com/grassmunk/Chicago95) by grassmunk
+  and contributors. See the [icon source notes](icons/NineIcons48x.SOURCE.md)
+  for the exact release and packaging changes.
+- **Apple and the original Macintosh designers** — the classic System 7 bitmap
+  fonts and cursor artwork. The [font source notes](fonts/System7-BITMAP-SOURCE.md),
+  [Geneva notes](fonts/Geneva-SOURCE.md), and
+  [cursor source notes](cursors/Quartz-System7-cursors/SOURCE.md) document their provenance.
+- **Community bitmap font authors and maintainers** — Spleen, Tamzen, Cozette,
+  Scientifica, Creep, Cherry, Kirsch, Proggy, Gohufont, ProFont, and X11 Fixed.
+  See the [community font credits](fonts/community/README.md) for upstream links
+  and [original license notices](fonts/community/licenses/).
+- **Unsplash photographers** — the optional wallpapers in the
+  [System7 collection](https://unsplash.com/collections/ycaoGBS5pZ8/system7).
+  The wallpaper installer preserves photographer names in the desktop catalog.
 
 Bundled third-party assets retain their original terms and attribution; see
 `fonts/*SOURCE.md`, `fonts/community/licenses/`,
