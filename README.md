@@ -1,3 +1,4 @@
+
 # Quartz
 
 > [!WARNING]
@@ -12,7 +13,7 @@
 A classic Macintosh-inspired desktop theme for **Ubuntu MATE 24.04**. Quartz
 includes shared GTK 2, GTK 3, GTK 4 and Marco themes, icons, bitmap fonts,
 cursors, and Quartz Settings for adjusting the look of your desktop.
-
+<img width="1440" height="900" alt="vm-20260909-222344" src="https://github.com/user-attachments/assets/67b75e6f-5148-4a3d-ad10-4eec140a84e0" />
 ## Install
 
 Open a terminal in your Ubuntu MATE desktop session.
