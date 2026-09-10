@@ -1,0 +1,18 @@
+/* XPM */
+/* System 7 StandardWDEF GoAwayHiliteData / ZoomHiliteData, native 11x11. */
+static char *titlebutton_pressed_system7[] = {
+"11 11 2 1",
+". c None",
+"X c #000000",
+"XXXXXXXXXXX",
+"X....X....X",
+"X.X..X..X.X",
+"X..X.X.X..X",
+"X.........X",
+"XXXX...XXXX",
+"X.........X",
+"X..X.X.X..X",
+"X.X..X..X.X",
+"X....X....X",
+"XXXXXXXXXXX"
+};

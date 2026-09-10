@@ -1,0 +1,23 @@
+/* XPM */
+static const char *quartz_system7_plus[] = {
+"16 16 3 1",
+". c None",
+"X c #000000",
+"o c #FFFFFF",
+"....oooooo......",
+"....oXXXXXo.....",
+"....oXoooXXo....",
+"....oXoooXXo....",
+"oooooXoooXXooooo",
+"oXXXXXoooXXXXXo.",
+"oXooooXXXooooXXo",
+"oXooooX.XooooXXo",
+"oXooooXXXooooXXo",
+"oXXXXXoooXXXXXXo",
+".oXXXXoooXXXXXXo",
+".ooooXoooXXooooo",
+"....oXoooXXo....",
+"....oXXXXXXo....",
+".....oXXXXXo....",
+"......ooooo....."
+};

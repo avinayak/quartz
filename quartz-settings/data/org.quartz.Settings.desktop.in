@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Quartz Settings
+GenericName=Appearance Settings
+Comment=Choose shared Quartz colors and inspect GTK compatibility
+Exec=@BINDIR@/quartz-settings
+Icon=preferences-desktop-theme
+Terminal=false
+StartupNotify=true
+Categories=Settings;DesktopSettings;GTK;
+Keywords=Quartz;Theme;GTK;Audit;Appearance;Color;Palette;

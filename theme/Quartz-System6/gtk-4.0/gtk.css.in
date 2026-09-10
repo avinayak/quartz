@@ -1,0 +1,2150 @@
+/* Quartz GTK 4: compact, one-bit System 7 controls for modern dialogs. */
+@define-color quartz_ink #000000;
+@define-color quartz_paper @quartz_application;
+@define-color quartz_application @QUARTZ_APPLICATION_BG@;
+@define-color quartz_menubar @QUARTZ_MENUBAR_BG@;
+@define-color quartz_titlebar @QUARTZ_TITLEBAR_BG@;
+@define-color quartz_chrome @quartz_application;
+@define-color quartz_inactive @quartz_application;
+@define-color quartz_disabled @QUARTZ_APPLICATION_DISABLED_FG@;
+@define-color quartz_disabled_bg @QUARTZ_APPLICATION_DISABLED_BG@;
+@define-color quartz_pressed @QUARTZ_APPLICATION_SHADE@;
+@define-color quartz_toggle_on @QUARTZ_APPLICATION_SHADE@;
+@define-color quartz_suggested #ddf1d8;
+@define-color quartz_suggested_pressed #cbdec7;
+@define-color quartz_destructive #f4d6d6;
+@define-color quartz_destructive_pressed #e0c5c5;
+@define-color quartz_scroll_thumb @quartz_application;
+@define-color quartz_tooltip #ffecb3;
+
+/* GTK/libadwaita public palette. */
+@define-color accent_color #000000;
+@define-color accent_bg_color #000000;
+@define-color accent_fg_color @quartz_application;
+@define-color destructive_color #000000;
+@define-color destructive_bg_color #000000;
+@define-color destructive_fg_color @quartz_application;
+@define-color success_color #000000;
+@define-color success_bg_color #000000;
+@define-color success_fg_color @quartz_application;
+@define-color warning_color #000000;
+@define-color warning_bg_color @quartz_application;
+@define-color warning_fg_color #000000;
+@define-color error_color #000000;
+@define-color error_bg_color #000000;
+@define-color error_fg_color @quartz_application;
+@define-color window_bg_color @quartz_application;
+@define-color window_fg_color #000000;
+@define-color view_bg_color @quartz_application;
+@define-color view_fg_color #000000;
+@define-color headerbar_bg_color @quartz_titlebar;
+@define-color headerbar_fg_color #000000;
+@define-color headerbar_border_color #000000;
+@define-color headerbar_backdrop_color @quartz_titlebar;
+@define-color headerbar_shade_color transparent;
+@define-color headerbar_darker_shade_color transparent;
+@define-color card_bg_color @quartz_application;
+@define-color card_fg_color #000000;
+@define-color card_shade_color transparent;
+@define-color dialog_bg_color @quartz_application;
+@define-color dialog_fg_color #000000;
+@define-color popover_bg_color @quartz_application;
+@define-color popover_fg_color #000000;
+@define-color popover_shade_color transparent;
+@define-color sidebar_bg_color @quartz_application;
+@define-color sidebar_fg_color #000000;
+@define-color sidebar_backdrop_color @quartz_application;
+@define-color sidebar_border_color #000000;
+@define-color sidebar_shade_color transparent;
+@define-color secondary_sidebar_bg_color @quartz_application;
+@define-color secondary_sidebar_fg_color #000000;
+@define-color secondary_sidebar_backdrop_color @quartz_application;
+@define-color secondary_sidebar_border_color #000000;
+@define-color secondary_sidebar_shade_color transparent;
+@define-color thumbnail_bg_color @quartz_application;
+@define-color thumbnail_fg_color #000000;
+@define-color insensitive_bg_color @quartz_application;
+@define-color shade_color transparent;
+@define-color scrollbar_outline_color #000000;
+
+* {
+  background-image: none;
+  text-shadow: none;
+  box-shadow: none;
+  -gtk-icon-shadow: none;
+  border-radius: 0;
+  transition: none;
+  animation: none;
+  outline-color: @quartz_ink;
+  outline-style: none;
+  outline-width: 1px;
+  outline-offset: -3px;
+}
+
+*:focus-visible {
+  outline-color: @quartz_ink;
+  outline-style: dotted;
+  outline-width: 1px;
+  outline-offset: -3px;
+}
+
+.background,
+window,
+dialog,
+headerbar,
+toolbar,
+actionbar,
+statusbar,
+frame,
+calendar,
+notebook {
+  color: @quartz_ink;
+  background-color: @quartz_chrome;
+}
+
+window.csd,
+window.dialog,
+window.dialog.csd,
+dialog.csd,
+window.background.csd,
+window.background.solid-csd {
+  border: 1px solid @quartz_ink;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* `solid-csd` is GTK's non-composited window path. Its asymmetric border
+ * guarantees the two-pixel bottom silhouette even when GTK clips the
+ * decoration node's external, opaque shadow. */
+window.background.solid-csd {
+  padding: 0;
+  box-shadow: none;
+}
+
+label,
+.title,
+.subtitle,
+.heading,
+.large-title,
+.title-1,
+.title-2,
+.title-3,
+.title-4,
+.caption-heading,
+strong,
+b {
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+*:disabled {
+  color: @quartz_disabled;
+  opacity: 1;
+  -gtk-icon-filter: none;
+}
+
+/* Let symbolic icons inherit the foreground of their owning control or row.
+ * This remains correct through arbitrary toolkit wrappers and avoids broad
+ * state selectors leaking into nested popovers. Fixed-color images ignore it. */
+image,
+image:backdrop {
+  color: inherit;
+  opacity: 1;
+  -gtk-icon-filter: none;
+}
+
+image:disabled {
+  opacity: 1;
+  -gtk-icon-filter: none;
+}
+
+/* GTK 4 CSD title strips stay flat; Marco retains the classic pinstripes. */
+headerbar,
+.titlebar {
+  min-height: 19px;
+  padding: 0 3px;
+  border: 0;
+  border-bottom: 1px solid @quartz_ink;
+  background-color: @quartz_titlebar;
+  background-image: none;
+}
+
+headerbar:backdrop,
+.titlebar:backdrop {
+  background-color: @quartz_titlebar;
+  background-image: none;
+}
+
+headerbar windowtitle,
+headerbar .title,
+headerbar .subtitle,
+.titlebar .title {
+  color: inherit;
+  background-color: transparent;
+  padding: 0 4px;
+}
+
+/* Preserve the established Chicago-like title role. Application widgets
+ * inherit Geneva through GtkSettings, while monospace widgets stay intact. */
+headerbar windowtitle,
+headerbar .title,
+.titlebar .title,
+window.dialog.message .titlebar label {
+  font-family: "ChiKareGo2";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+headerbar button,
+.titlebar button,
+windowcontrols button {
+  min-height: 14px;
+  padding: 0 6px;
+  margin: 1px;
+  border: 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Header-bar controls are chrome affordances, not raised content actions.
+ * Keep their state backgrounds, but never give them a frame or button
+ * shadow, including semantic and disabled variants. */
+headerbar button:hover,
+headerbar button:active,
+headerbar button:checked,
+headerbar button:disabled,
+headerbar button.suggested-action,
+headerbar button.destructive-action,
+.titlebar button:hover,
+.titlebar button:active,
+.titlebar button:checked,
+.titlebar button:disabled,
+.titlebar button.suggested-action,
+.titlebar button.destructive-action,
+windowcontrols button:hover,
+windowcontrols button:active,
+windowcontrols button:checked,
+windowcontrols button:disabled,
+windowcontrols button.suggested-action,
+windowcontrols button.destructive-action {
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Compound generic states have greater selector weight, so match that weight
+ * explicitly to keep those states flat as well. */
+headerbar button.suggested-action:hover,
+headerbar button.suggested-action:active,
+headerbar button.suggested-action:checked,
+headerbar button.destructive-action:hover,
+headerbar button.destructive-action:active,
+headerbar button.destructive-action:checked,
+headerbar button:disabled:hover,
+headerbar button:disabled:active,
+headerbar button:disabled:checked,
+headerbar button.flat:hover,
+.titlebar button.suggested-action:hover,
+.titlebar button.suggested-action:active,
+.titlebar button.suggested-action:checked,
+.titlebar button.destructive-action:hover,
+.titlebar button.destructive-action:active,
+.titlebar button.destructive-action:checked,
+.titlebar button:disabled:hover,
+.titlebar button:disabled:active,
+.titlebar button:disabled:checked,
+.titlebar button.flat:hover,
+windowcontrols button.suggested-action:hover,
+windowcontrols button.suggested-action:active,
+windowcontrols button.suggested-action:checked,
+windowcontrols button.destructive-action:hover,
+windowcontrols button.destructive-action:active,
+windowcontrols button.destructive-action:checked,
+windowcontrols button:disabled:hover,
+windowcontrols button:disabled:active,
+windowcontrols button:disabled:checked,
+windowcontrols button.flat:hover {
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+headerbar button.image-button,
+headerbar menubutton > button,
+windowcontrols button {
+  min-width: 12px;
+  min-height: 12px;
+  margin: 2px 1px;
+  padding: 0;
+  -gtk-icon-size: 12px;
+}
+
+headerbar button.image-button image,
+headerbar menubutton > button image,
+windowcontrols button image {
+  min-width: 12px;
+  min-height: 12px;
+  -gtk-icon-size: 12px;
+}
+
+/* GtkPopoverMenuBar uses `menubar > item` in GTK 4. Keep its measured
+ * 25-pixel System 7 strip independent from borderless header-bar buttons.
+ * The face-colored top border reserves one pixel because the window frame
+ * supplies the single visible upper separator. */
+menubar {
+  color: @quartz_ink;
+  background-color: @quartz_menubar;
+  background-image: none;
+  font-family: "ChiKareGo2";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  border-top: 1px solid @quartz_menubar;
+  border-bottom: 1px solid @quartz_ink;
+  min-height: 23px;
+  padding: 0;
+}
+
+menubar > item {
+  color: inherit;
+  background-color: transparent;
+  background-image: none;
+  min-height: 23px;
+  min-width: 0;
+  padding: 0 7px;
+}
+
+menubar > item:hover,
+menubar > item:active,
+menubar > item:selected,
+menubar > item:checked {
+  color: @quartz_paper;
+  background-color: @quartz_ink;
+}
+
+/* GtkMessageDialog/Zenity uses a more specific CSD node hierarchy. */
+window.dialog.message.csd.background {
+  border: 1px solid @quartz_ink;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+window.dialog.message .titlebar {
+  min-height: 19px;
+  padding: 0 3px;
+  border: 0;
+  border-bottom: 1px solid @quartz_ink;
+  border-radius: 0;
+  background-color: @quartz_titlebar;
+  background-image: none;
+}
+
+window.dialog.message .titlebar label {
+  color: inherit;
+  background-color: transparent;
+  padding: 0 4px;
+}
+
+/* Raised buttons cast one hard pixel below the radius-matched body. GTK 4's
+ * render transform moves the whole surface and its contents into that pixel
+ * while it is pressed, without changing the surrounding layout. */
+button,
+dropdown > button {
+  color: @quartz_ink;
+  background-color: @quartz_chrome;
+  background-image: none;
+  border: 1px solid @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  min-height: 18px;
+  min-width: 18px;
+  padding: 1px 7px;
+  box-shadow: 0 1px 0 0 @quartz_ink;
+  transform: none;
+}
+
+/* Keyboard focus is an inset dotted contour, not a second solid button
+ * frame. GTK derives its corner curve from the button's configured radius. */
+button:focus-visible,
+dropdown > button:focus-visible {
+  outline-color: @quartz_ink;
+  outline-style: dotted;
+  outline-width: 1px;
+  outline-offset: -3px;
+}
+
+button:hover,
+dropdown > button:hover {
+  color: @quartz_ink;
+  background-color: @quartz_paper;
+  background-image: none;
+}
+
+/* A latched toggle remains physically pressed: its application-derived shade
+ * occupies the former shadow row until the value is cleared. */
+button:checked,
+dropdown > button:checked {
+  color: @quartz_ink;
+  background-color: @quartz_toggle_on;
+  background-image: none;
+  box-shadow: none;
+  transform: translate(0, 1px);
+}
+
+/* GtkToggleButton and radio-style button groups use the same palette shade on
+ * hover, whether or not they are currently latched. */
+button.toggle:hover,
+button.radio:hover {
+  background-color: @quartz_toggle_on;
+}
+
+/* Only the momentary pointer-down state consumes the physical shadow. */
+button:active,
+dropdown > button:active {
+  color: @quartz_ink;
+  background-color: @quartz_pressed;
+  background-image: none;
+  box-shadow: none;
+  transform: translate(0, 1px);
+}
+
+/* Semantic actions retain ordinary button geometry and interaction. */
+button.suggested-action,
+button.suggested-action:hover,
+button.suggested-action:checked {
+  color: @quartz_ink;
+  background-color: @quartz_suggested;
+  background-image: none;
+  margin: 0;
+  box-shadow: 0 1px 0 0 @quartz_ink;
+  transform: none;
+}
+
+button.suggested-action:active {
+  color: @quartz_ink;
+  background-color: @quartz_suggested_pressed;
+  box-shadow: none;
+  transform: translate(0, 1px);
+}
+
+button.destructive-action,
+button.destructive-action:hover,
+button.destructive-action:checked {
+  color: @quartz_ink;
+  background-color: @quartz_destructive;
+  background-image: none;
+  margin: 0;
+  box-shadow: 0 1px 0 0 @quartz_ink;
+  transform: none;
+}
+
+button.destructive-action:active {
+  color: @quartz_ink;
+  background-color: @quartz_destructive_pressed;
+  box-shadow: none;
+  transform: translate(0, 1px);
+}
+
+button:disabled,
+dropdown > button:disabled {
+  color: @quartz_disabled;
+  background-color: @quartz_disabled_bg;
+  border-color: @quartz_disabled;
+  background-image: none;
+  box-shadow: 0 1px 0 0 @quartz_disabled;
+  transform: none;
+}
+
+button.flat {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Flat controls acknowledge hover with fill alone. Keep the transparent
+ * border reservation so their contents never jump when the state changes. */
+button.flat:hover {
+  color: @quartz_ink;
+  background-color: @quartz_toggle_on;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+button.flat:active,
+button.flat:checked {
+  color: @quartz_ink;
+  background-color: @quartz_pressed;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+button:disabled:hover,
+button:disabled:active,
+button:disabled:checked,
+dropdown > button:disabled:hover,
+dropdown > button:disabled:active,
+dropdown > button:disabled:checked {
+  color: @quartz_disabled;
+  background-color: @quartz_disabled_bg;
+  border-color: @quartz_disabled;
+  box-shadow: 0 1px 0 0 @quartz_disabled;
+  transform: none;
+}
+
+button.flat:disabled:hover,
+button.flat:disabled:active,
+button.flat:disabled:checked {
+  color: @quartz_disabled;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+dropdown arrow {
+  min-height: 12px;
+  min-width: 12px;
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-down.xpm");
+}
+
+dropdown > button:active arrow,
+dropdown > button:checked arrow {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-down.xpm");
+}
+
+dropdown > button:disabled arrow,
+dropdown > button:disabled:hover arrow,
+dropdown > button:disabled:active arrow,
+dropdown > button:disabled:checked arrow {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-down-disabled.xpm");
+}
+
+/* Content views are part of the selected application surface. */
+textview text,
+.view,
+viewport,
+columnview,
+listview,
+gridview {
+  color: @quartz_ink;
+  background-color: @quartz_application;
+}
+
+/* Entry controls use the same paper/application face as the surrounding UI. */
+entry,
+spinbutton,
+dropdown > button {
+  color: @quartz_ink;
+  background-color: @quartz_paper;
+}
+
+entry,
+spinbutton:not(.vertical) {
+  border: 1px solid @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  min-height: 18px;
+  padding: 1px 4px;
+  box-shadow: none;
+}
+
+entry:focus-within,
+spinbutton:focus-within:not(.vertical) {
+  outline-style: dotted;
+  outline-offset: -3px;
+  border-color: @quartz_ink;
+  box-shadow: none;
+}
+
+entry:disabled,
+spinbutton:disabled {
+  color: @quartz_disabled;
+  background-color: @quartz_chrome;
+  border-color: @quartz_disabled;
+}
+
+/* The spin button owns the rounded box. Its square text child must not paint
+ * over the parent's diagonal left-border pixels. */
+spinbutton:not(.vertical) > text {
+  background-color: transparent;
+}
+
+entry selection,
+textview text selection,
+selection {
+  color: @quartz_paper;
+  background-color: @quartz_ink;
+}
+
+spinbutton button {
+  min-width: 18px;
+  min-height: 18px;
+  padding: 0;
+  border-width: 0 0 0 1px;
+  box-shadow: none;
+  transform: none;
+}
+
+spinbutton button:active {
+  color: @quartz_ink;
+  background-color: @quartz_pressed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Vertical spins are a joined stack: complete stepper frames and a text
+ * surface with side borders, instead of horizontal-only left separators. */
+spinbutton.vertical {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+spinbutton.vertical > button {
+  border: 1px solid @quartz_ink;
+  margin: 0;
+}
+
+spinbutton.vertical > text {
+  border-style: solid;
+  border-color: @quartz_ink;
+  border-width: 0 1px;
+  border-radius: 0;
+  background-color: @quartz_paper;
+  padding: 1px 4px;
+}
+
+spinbutton.vertical > button:disabled,
+spinbutton.vertical > text:disabled {
+  border-color: @quartz_disabled;
+  background-color: @quartz_chrome;
+}
+
+/* Exact 12px XPM indicators shared with the GTK 2/3 themes. */
+check,
+radio,
+checkbutton > check {
+  background-color: transparent;
+  border: 0;
+  margin: 0 4px 0 0;
+  min-height: 12px;
+  min-width: 12px;
+  padding: 0;
+  -gtk-icon-size: 12px;
+}
+
+check,
+checkbutton > check {
+  -gtk-icon-source: url("../gtk-2.0/assets/check-off.xpm");
+}
+
+check:checked,
+check:indeterminate,
+checkbutton > check:checked,
+checkbutton > check:indeterminate {
+  -gtk-icon-source: url("../gtk-2.0/assets/check-on.xpm");
+}
+
+radio {
+  -gtk-icon-source: url("../gtk-2.0/assets/radio-off.xpm");
+}
+
+radio:checked {
+  -gtk-icon-source: url("../gtk-2.0/assets/radio-on.xpm");
+}
+
+check:disabled,
+checkbutton > check:disabled {
+  -gtk-icon-source: url("../gtk-2.0/assets/check-off-disabled.xpm");
+}
+
+check:checked:disabled,
+check:indeterminate:disabled,
+checkbutton > check:checked:disabled,
+checkbutton > check:indeterminate:disabled {
+  -gtk-icon-source: url("../gtk-2.0/assets/check-on-disabled.xpm");
+}
+
+radio:disabled {
+  -gtk-icon-source: url("../gtk-2.0/assets/radio-off-disabled.xpm");
+}
+
+radio:checked:disabled {
+  -gtk-icon-source: url("../gtk-2.0/assets/radio-on-disabled.xpm");
+}
+
+row:selected check:not(:disabled),
+flowboxchild:selected check:not(:disabled),
+gridview > child:selected check:not(:disabled),
+popover modelbutton:hover check:not(:disabled),
+popover modelbutton:active check:not(:disabled),
+popover modelbutton:selected check:not(:disabled),
+popover modelbutton:checked check:not(:disabled),
+popover button.model:hover check:not(:disabled),
+popover button.model:active check:not(:disabled),
+popover button.model:selected check:not(:disabled),
+popover button.model:checked check:not(:disabled) {
+  -gtk-icon-source: url("../gtk-2.0/assets/check-off-inverse.xpm");
+}
+
+row:selected check:checked:not(:disabled),
+row:selected check:indeterminate:not(:disabled),
+flowboxchild:selected check:checked:not(:disabled),
+flowboxchild:selected check:indeterminate:not(:disabled),
+gridview > child:selected check:checked:not(:disabled),
+gridview > child:selected check:indeterminate:not(:disabled),
+popover modelbutton:hover check:checked:not(:disabled),
+popover modelbutton:hover check:indeterminate:not(:disabled),
+popover modelbutton:active check:checked:not(:disabled),
+popover modelbutton:active check:indeterminate:not(:disabled),
+popover modelbutton:selected check:checked:not(:disabled),
+popover modelbutton:selected check:indeterminate:not(:disabled),
+popover modelbutton:checked check:checked:not(:disabled),
+popover modelbutton:checked check:indeterminate:not(:disabled),
+popover button.model:hover check:checked:not(:disabled),
+popover button.model:hover check:indeterminate:not(:disabled),
+popover button.model:active check:checked:not(:disabled),
+popover button.model:active check:indeterminate:not(:disabled),
+popover button.model:selected check:checked:not(:disabled),
+popover button.model:selected check:indeterminate:not(:disabled),
+popover button.model:checked check:checked:not(:disabled),
+popover button.model:checked check:indeterminate:not(:disabled) {
+  -gtk-icon-source: url("../gtk-2.0/assets/check-on-inverse.xpm");
+}
+
+row:selected radio:not(:disabled),
+flowboxchild:selected radio:not(:disabled),
+gridview > child:selected radio:not(:disabled),
+popover modelbutton:hover radio:not(:disabled),
+popover modelbutton:active radio:not(:disabled),
+popover modelbutton:selected radio:not(:disabled),
+popover modelbutton:checked radio:not(:disabled),
+popover button.model:hover radio:not(:disabled),
+popover button.model:active radio:not(:disabled),
+popover button.model:selected radio:not(:disabled),
+popover button.model:checked radio:not(:disabled) {
+  -gtk-icon-source: url("../gtk-2.0/assets/radio-off-inverse.xpm");
+}
+
+row:selected radio:checked:not(:disabled),
+flowboxchild:selected radio:checked:not(:disabled),
+gridview > child:selected radio:checked:not(:disabled),
+popover modelbutton:hover radio:checked:not(:disabled),
+popover modelbutton:active radio:checked:not(:disabled),
+popover modelbutton:selected radio:checked:not(:disabled),
+popover modelbutton:checked radio:checked:not(:disabled),
+popover button.model:hover radio:checked:not(:disabled),
+popover button.model:active radio:checked:not(:disabled),
+popover button.model:selected radio:checked:not(:disabled),
+popover button.model:checked radio:checked:not(:disabled) {
+  -gtk-icon-source: url("../gtk-2.0/assets/radio-on-inverse.xpm");
+}
+
+/* Native one-bit switch artwork: a single outline and paper moving thumb.
+ * Nine-sliced track corners follow the shared radius without antialiasing. */
+switch {
+  color: transparent;
+  background-color: transparent;
+  background-image: none;
+  border: 0 solid transparent;
+  border-radius: 0;
+  border-image-source: url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-track-off.xpm");
+  border-image-slice: @QUARTZ_SWITCH_SLICE@ fill;
+  border-image-width: @QUARTZ_SWITCH_SLICE@px;
+  border-image-repeat: stretch;
+  min-height: 16px;
+  min-width: 32px;
+  padding: 0;
+  margin: 2px 0;
+  box-shadow: none;
+  transition: none;
+}
+
+switch:checked {
+  color: transparent;
+  background-image:
+    linear-gradient(to right, transparent 50%, @quartz_paper 50%),
+    url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-dither.xpm");
+  background-size: 100% 100%, 4px 2px;
+  background-repeat: no-repeat, repeat;
+  border-image-source: url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-track-on.xpm");
+}
+
+switch > slider {
+  background-color: transparent;
+  background-image: url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-thumb.xpm");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+  border: 0;
+  border-radius: 0;
+  min-height: 16px;
+  min-width: 16px;
+  box-shadow: none;
+}
+
+switch:disabled {
+  color: transparent;
+  border-image-source: url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-track-disabled-off.xpm");
+}
+
+switch:checked:disabled {
+  color: transparent;
+  background-image:
+    linear-gradient(to right, transparent 50%, @quartz_paper 50%),
+    url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-dither-disabled.xpm");
+  background-size: 100% 100%, 4px 2px;
+  background-repeat: no-repeat, repeat;
+  border-image-source: url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-track-disabled-on.xpm");
+}
+
+switch:disabled > slider {
+  background-image: url("../gtk-3.0/assets/@QUARTZ_SWITCH_ASSET_PREFIX@-thumb-disabled.xpm");
+}
+
+/* The track/handle position communicates the state; hide toolkit I/O glyphs. */
+switch image {
+  color: transparent;
+  opacity: 0;
+}
+
+/* Macintosh value rails: the remaining range is dithered and the completed
+ * range is an application-colored pixel-cornered box with a one-pixel
+ * bottom-only shadow. The native scale slider remains present for input but
+ * paints no puck. */
+scale:disabled {
+  opacity: 0.5;
+}
+
+scale > trough {
+  background-color: @quartz_paper;
+  background-image: url("../gtk-3.0/assets/scale-dither.xpm");
+  background-repeat: repeat;
+  border: 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  box-shadow: none;
+}
+
+scale.horizontal > trough {
+  min-height: 14px;
+}
+
+scale.vertical > trough {
+  min-width: 14px;
+}
+
+scale > trough > highlight,
+scale > trough > fill {
+  background-color: transparent;
+  background-image:
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_paper, @quartz_paper),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink);
+  background-size:
+    calc(100% - 2px) 1px,
+    calc(100% - 2px) 1px,
+    1px calc(100% - 3px),
+    1px calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 3px),
+    calc(100% - 2px) 1px,
+    100% calc(100% - 3px),
+    calc(100% - 2px) 1px;
+  background-position:
+    1px 0,
+    1px calc(100% - 1px),
+    0 1px,
+    100% 1px,
+    1px 1px,
+    1px 1px,
+    0 2px,
+    1px 100%;
+  background-repeat: no-repeat;
+  border: 0;
+  /* The gradients own the one-bit corner cut; a CSS radius would antialias it. */
+  border-radius: 0;
+  box-shadow: none;
+}
+
+scale > trough > slider {
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  box-shadow: none;
+  min-height: 0;
+  min-width: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+progressbar > trough {
+  background-color: @quartz_paper;
+  border: 1px solid @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  min-height: 2px;
+  min-width: 2px;
+  padding: 0;
+}
+
+progressbar > trough > progress {
+  background-color: @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  min-height: 2px;
+  min-width: 2px;
+  padding: 0;
+  border: 0;
+}
+
+progressbar.horizontal > trough > progress.pulse {
+  min-width: 40px;
+}
+
+levelbar > trough,
+levelbar trough {
+  background-color: @quartz_paper;
+  border: 1px solid @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  min-height: 0;
+  min-width: 0;
+  padding: 1px;
+}
+
+levelbar block {
+  border: 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  min-height: 7px;
+  min-width: 7px;
+}
+
+/* Baseline segmented meters are thinner than continuous level bars. */
+levelbar.discrete > trough,
+levelbar.discrete trough {
+  padding: 0;
+}
+
+levelbar.discrete block {
+  min-height: 2px;
+  min-width: 2px;
+}
+
+levelbar block.filled,
+levelbar block.high,
+levelbar block.low,
+levelbar block.full {
+  background-color: @quartz_ink;
+}
+
+levelbar block.empty {
+  background-color: @quartz_paper;
+}
+
+levelbar.horizontal.discrete trough > block {
+  margin: 0 1px;
+}
+
+levelbar.vertical.discrete trough > block {
+  margin: 1px 0;
+}
+
+progressbar.vertical > trough > progress.pulse {
+  min-height: 40px;
+}
+
+progressbar > text {
+  color: @quartz_ink;
+  margin-bottom: 4px;
+}
+
+/* Discrete native-size frames keep every spoke aligned to the pixel grid.
+ * GTK marks running spinners :checked; stopped indicators paint nothing. */
+@keyframes quartz-spinner {
+  0% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-symbolic.svg")); }
+  12.5% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-1-symbolic.svg")); }
+  25% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-2-symbolic.svg")); }
+  37.5% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-3-symbolic.svg")); }
+  50% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-4-symbolic.svg")); }
+  62.5% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-5-symbolic.svg")); }
+  75% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-6-symbolic.svg")); }
+  87.5% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-7-symbolic.svg")); }
+  100% { background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-symbolic.svg")); }
+}
+
+spinner {
+  color: inherit;
+  min-width: 12px;
+  min-height: 12px;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+  -gtk-icon-source: none;
+  animation: none;
+}
+
+spinner:checked {
+  background-image: -gtk-recolor(url("../gtk-3.0/assets/spinner-symbolic.svg"));
+  animation: quartz-spinner 800ms steps(8, end) infinite;
+}
+
+spinner:disabled {
+  color: @quartz_disabled;
+  animation: none;
+}
+
+/* Popovers and selections use the Macintosh black inversion. GTK 4 paints
+ * the visible popup on the contents node, so that node owns its rounded frame
+ * and the single hard shadow row below it. */
+popover,
+popover.background {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+popover.menu,
+popover.background.menu {
+  font-family: "ChiKareGo2";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+popover > contents,
+.popover > contents {
+  color: @quartz_ink;
+  background-color: @quartz_paper;
+  border: 1px solid #000000;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  box-shadow: 0 1px 0 0 #000000;
+  padding: 1px;
+}
+
+popover modelbutton,
+popover button.model {
+  color: @quartz_ink;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  min-height: 20px;
+  padding: 0 7px;
+  box-shadow: none;
+  transform: none;
+}
+
+popover modelbutton:hover,
+popover modelbutton:active,
+popover modelbutton:selected,
+popover modelbutton:checked,
+popover button.model:hover,
+popover button.model:active,
+popover button.model:selected,
+popover button.model:checked {
+  color: @quartz_paper;
+  background-color: @quartz_ink;
+  background-image: none;
+  box-shadow: none;
+  transform: none;
+}
+
+popover modelbutton arrow,
+popover button.model arrow {
+  min-height: 12px;
+  min-width: 12px;
+  -gtk-icon-size: 12px;
+  background: none;
+}
+
+popover modelbutton arrow.right,
+popover button.model arrow.right {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-right.xpm");
+}
+
+popover modelbutton arrow.left,
+popover button.model arrow.left {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-left.xpm");
+}
+
+popover modelbutton:hover arrow.right,
+popover modelbutton:active arrow.right,
+popover modelbutton:selected arrow.right,
+popover modelbutton:checked arrow.right,
+popover button.model:hover arrow.right,
+popover button.model:active arrow.right,
+popover button.model:selected arrow.right,
+popover button.model:checked arrow.right {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-right-inverse.xpm");
+}
+
+popover modelbutton:hover arrow.left,
+popover modelbutton:active arrow.left,
+popover modelbutton:selected arrow.left,
+popover modelbutton:checked arrow.left,
+popover button.model:hover arrow.left,
+popover button.model:active arrow.left,
+popover button.model:selected arrow.left,
+popover button.model:checked arrow.left {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-left-inverse.xpm");
+}
+
+/* Disabled model rows may still retain hover/checked flags.  Disabled wins,
+ * including for the fixed-color submenu arrow. */
+popover modelbutton:disabled,
+popover modelbutton:disabled:hover,
+popover modelbutton:disabled:active,
+popover modelbutton:disabled:selected,
+popover modelbutton:disabled:checked,
+popover button.model:disabled,
+popover button.model:disabled:hover,
+popover button.model:disabled:active,
+popover button.model:disabled:selected,
+popover button.model:disabled:checked {
+  color: @quartz_disabled;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+}
+
+popover modelbutton:disabled arrow.right,
+popover modelbutton:disabled:hover arrow.right,
+popover modelbutton:disabled:active arrow.right,
+popover modelbutton:disabled:checked arrow.right,
+popover button.model:disabled arrow.right,
+popover button.model:disabled:hover arrow.right,
+popover button.model:disabled:active arrow.right,
+popover button.model:disabled:checked arrow.right {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-right.xpm");
+}
+
+popover modelbutton:disabled arrow.left,
+popover modelbutton:disabled:hover arrow.left,
+popover modelbutton:disabled:active arrow.left,
+popover modelbutton:disabled:checked arrow.left,
+popover button.model:disabled arrow.left,
+popover button.model:disabled:hover arrow.left,
+popover button.model:disabled:active arrow.left,
+popover button.model:disabled:checked arrow.left {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-left.xpm");
+}
+
+tooltip,
+tooltip.background,
+.tooltip {
+  color: @quartz_ink;
+  background-color: @quartz_tooltip;
+  border: 1px solid @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+  padding: 3px 5px;
+}
+
+tooltip label,
+.tooltip label {
+  color: inherit;
+}
+
+/* The tooltip surface owns the sole outline; its popup decoration stays bare. */
+tooltip decoration,
+window.popup.tooltip decoration,
+.tooltip decoration {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+toolbar,
+.toolbar {
+  padding: 1px;
+  border-bottom: 1px solid @quartz_ink;
+}
+
+actionbar {
+  padding: 4px;
+  border-top: 1px solid @quartz_ink;
+}
+
+.statusbar {
+  min-height: 22px;
+  margin: 0;
+  padding: 1px 6px;
+  border: 0;
+}
+
+.statusbar frame {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+}
+
+.statusbar box {
+  margin: 0;
+  padding: 0;
+}
+
+.statusbar label {
+  color: inherit;
+  background-color: transparent;
+}
+
+notebook > header {
+  background-color: @quartz_chrome;
+  padding: 0;
+}
+
+notebook > header.top {
+  border-bottom: 1px solid @quartz_ink;
+}
+
+notebook > header.bottom {
+  border-top: 1px solid @quartz_ink;
+}
+
+notebook > header.left {
+  border-right: 1px solid @quartz_ink;
+}
+
+notebook > header.right {
+  border-left: 1px solid @quartz_ink;
+}
+
+notebook > header > tabs > tab {
+  color: @quartz_ink;
+  background-color: @quartz_inactive;
+  border: 1px solid @quartz_ink;
+  min-height: 20px;
+  padding: 1px 8px;
+  margin: 0 -1px -1px 0;
+}
+
+/* GtkNotebook owns keyboard focus; paint that focus on its selected tab. */
+notebook:focus:focus-visible > header > tabs > tab:checked {
+  outline-color: @quartz_ink;
+  outline-style: dotted;
+  outline-width: 1px;
+  outline-offset: -3px;
+}
+
+notebook > header.top > tabs > tab {
+  border-radius: @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0 0;
+}
+
+notebook > header.top > tabs > tab:checked {
+  background-color: @quartz_application;
+  border-bottom-color: @quartz_application;
+}
+
+notebook > header.bottom > tabs > tab {
+  margin: -1px -1px 0 0;
+  border-radius: 0 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@;
+}
+
+notebook > header.bottom > tabs > tab:checked {
+  background-color: @quartz_application;
+  border-top-color: @quartz_application;
+}
+
+notebook > header.left > tabs > tab {
+  margin: 0 -1px -1px 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@ 0 0 @QUARTZ_BORDER_RADIUS@;
+}
+
+notebook > header.left > tabs > tab:checked {
+  background-color: @quartz_application;
+  border-right-color: @quartz_application;
+}
+
+notebook > header.right > tabs > tab {
+  margin: 0 0 -1px -1px;
+  border-radius: 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0;
+}
+
+notebook > header.right > tabs > tab:checked {
+  background-color: @quartz_application;
+  border-left-color: @quartz_application;
+}
+
+/* Frame the page; the header supplies its tab-facing edge. */
+notebook > stack:not(:only-child) {
+  color: @quartz_ink;
+  background-color: @quartz_application;
+  border: 1px solid @quartz_ink;
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+notebook > header.top + stack:not(:only-child) {
+  border-top: 0;
+  border-radius: 0 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@;
+}
+
+notebook > header.bottom + stack:not(:only-child) {
+  border-bottom: 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0 0;
+}
+
+notebook > header.left + stack:not(:only-child) {
+  border-left: 0;
+  border-radius: 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0;
+}
+
+notebook > header.right + stack:not(:only-child) {
+  border-right: 0;
+  border-radius: @QUARTZ_BORDER_RADIUS@ 0 0 @QUARTZ_BORDER_RADIUS@;
+}
+
+/* Bottom/right headers follow the page in GTK's node order. Share the
+ * existing page edge rather than adding a second separator beside it. */
+notebook > stack + header.bottom {
+  margin-top: -1px;
+}
+
+notebook > stack + header.right {
+  margin-left: -1px;
+}
+
+row,
+listview > row,
+columnview > listview > row {
+  color: @quartz_ink;
+  min-height: 20px;
+}
+
+list,
+listview,
+columnview,
+gridview {
+  color: @quartz_ink;
+  background-color: @quartz_application;
+  border: 1px solid @quartz_ink;
+}
+
+/* GtkColumnView already frames its header and body. Its internal list must
+ * not add another outline or inset the rows relative to the column titles. */
+columnview > listview {
+  border: 0;
+}
+
+row:selected,
+flowboxchild:selected,
+listview > row:selected,
+columnview > listview > row:selected,
+gridview > child:selected,
+.view:selected {
+  color: @quartz_paper;
+  background-color: @quartz_ink;
+}
+
+row:selected:disabled,
+flowboxchild:selected:disabled,
+listview > row:selected:disabled,
+columnview > listview > row:selected:disabled,
+gridview > child:selected:disabled,
+.view:selected:disabled {
+  color: @quartz_disabled;
+  background-color: @quartz_paper;
+}
+
+row:selected:disabled *,
+flowboxchild:selected:disabled *,
+listview > row:selected:disabled *,
+columnview > listview > row:selected:disabled *,
+gridview > child:selected:disabled *,
+.view:selected:disabled * {
+  color: inherit;
+}
+
+columnview > header > button {
+  color: @quartz_ink;
+  background-color: @quartz_chrome;
+  border-width: 0 1px 1px 0;
+  min-height: 18px;
+  padding: 0 5px;
+  margin: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+columnview > header > button:active {
+  margin: 0;
+  transform: none;
+}
+
+columnview > header > button:last-child {
+  border-right-width: 0;
+}
+
+rubberband,
+.rubberband {
+  border: 1px solid @quartz_ink;
+  background-color: transparent;
+}
+
+/* Dithered scrollbars. GTK 4 exposes a thumb but no native steppers. */
+scrollbar {
+  color: @quartz_ink;
+  background-color: @quartz_paper;
+  border: 0;
+  box-shadow: none;
+  opacity: 1;
+}
+
+scrollbar.vertical {
+  min-width: 16px;
+}
+
+scrollbar.horizontal {
+  min-height: 16px;
+}
+
+scrollbar > range > trough,
+scrollbar trough {
+  background-color: @quartz_paper;
+  background-image: url("../gtk-3.0/assets/scrollbar-dither.xpm");
+  background-clip: content-box;
+  background-repeat: repeat;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+scrollbar.vertical > range > trough,
+scrollbar.vertical trough {
+  padding: 0 4px;
+}
+
+scrollbar.horizontal > range > trough,
+scrollbar.horizontal trough {
+  padding: 4px 0;
+}
+
+scrollbar:disabled > range > trough,
+scrollbar:disabled trough {
+  background-image: url("../gtk-3.0/assets/scrollbar-dither-disabled.xpm");
+}
+
+scrollbar > range > trough > slider,
+scrollbar slider {
+  background-color: @quartz_paper;
+  background-clip: border-box;
+  /* Draw the application-colored body and downward shadow as separate hard
+   * masks. The shadow repeats the one-pixel corner cut, avoiding a square
+   * lower-right tab. */
+  background-image:
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_scroll_thumb, @quartz_scroll_thumb),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink),
+    linear-gradient(@quartz_ink, @quartz_ink);
+  background-size:
+    calc(100% - 2px) 1px,
+    calc(100% - 2px) 1px,
+    1px calc(100% - 3px),
+    1px calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 3px),
+    calc(100% - 2px) 1px,
+    100% calc(100% - 3px),
+    calc(100% - 2px) 1px;
+  background-position:
+    1px 0,
+    1px calc(100% - 1px),
+    0 1px,
+    100% 1px,
+    1px 1px,
+    1px 1px,
+    0 2px,
+    1px 100%;
+  background-repeat: no-repeat;
+  border: 0;
+  /* The gradients own the one-bit corner cut; a CSS radius would antialias it. */
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 12px;
+  min-width: 12px;
+  margin: 0;
+  opacity: 1;
+}
+
+scrollbar.vertical > range > trough > slider,
+scrollbar.vertical slider {
+  min-height: 24px;
+  margin: 0 -2px;
+}
+
+scrollbar.horizontal > range > trough > slider,
+scrollbar.horizontal slider {
+  min-width: 24px;
+  margin: -2px 0;
+}
+
+/* GTK 4 no longer creates native stepper nodes, but keep generic scrollbar
+ * buttons unboxed if a custom widget exposes them. */
+scrollbar button {
+  color: @quartz_ink;
+  background-color: @quartz_paper;
+  border: 0;
+  box-shadow: none;
+  min-height: 12px;
+  min-width: 12px;
+  padding: 0;
+  margin: 0;
+  transform: none;
+}
+
+scrollbar button:active {
+  color: @quartz_ink;
+  background-color: @quartz_pressed;
+  box-shadow: none;
+  transform: none;
+}
+
+scrollbar button:disabled,
+scrollbar button:disabled:hover,
+scrollbar button:disabled:active,
+scrollbar button:disabled:checked {
+  color: @quartz_disabled;
+  background-color: @quartz_paper;
+  border: 0;
+  margin: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+scrollbar.overlay-indicator,
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) {
+  opacity: 1;
+  background-color: @quartz_paper;
+  border: 0;
+  box-shadow: none;
+}
+
+scrollbar.overlay-indicator slider,
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider,
+scrollbar.overlay-indicator > range > trough > slider,
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) > range > trough > slider {
+  background-color: @quartz_paper;
+  background-clip: border-box;
+  border: 0;
+  border-radius: 0;
+  min-height: 12px;
+  min-width: 12px;
+  margin: 0;
+  opacity: 1;
+}
+
+scrollbar.overlay-indicator.vertical:not(.dragging):not(.hovering) > range > trough > slider {
+  min-height: 24px;
+  margin: 0 -2px;
+}
+
+scrollbar.overlay-indicator.horizontal:not(.dragging):not(.hovering) > range > trough > slider {
+  min-width: 24px;
+  margin: -2px 0;
+}
+
+/* Generated one-bit corner pixels keep the shared curve free of GTK's gray
+ * antialiasing pixels. Hard one-pixel gradient stops continue that cadence
+ * along every straight edge, including the labelled frame-gap path. */
+frame {
+  border: 1px solid transparent;
+  border-image-source: none;
+  border-radius: 0;
+  background-image:
+@QUARTZ_FRAME_DOT_BACKGROUND_IMAGES@
+    repeating-linear-gradient(to right,
+      @quartz_ink 0, @quartz_ink 1px, transparent 1px, transparent 2px),
+    repeating-linear-gradient(to right,
+      @quartz_ink 0, @quartz_ink 1px, transparent 1px, transparent 2px),
+    repeating-linear-gradient(to bottom,
+      @quartz_ink 0, @quartz_ink 1px, transparent 1px, transparent 2px),
+    repeating-linear-gradient(to bottom,
+      @quartz_ink 0, @quartz_ink 1px, transparent 1px, transparent 2px);
+  background-size:
+@QUARTZ_FRAME_DOT_BACKGROUND_SIZES@
+    calc(100% - @QUARTZ_FRAME_EDGE_INSET@) 1px,
+    calc(100% - @QUARTZ_FRAME_EDGE_INSET@) 1px,
+    1px calc(100% - @QUARTZ_FRAME_EDGE_INSET@),
+    1px calc(100% - @QUARTZ_FRAME_EDGE_INSET@);
+  background-position:
+@QUARTZ_FRAME_DOT_BACKGROUND_POSITIONS@
+    center top, center bottom, left center, right center;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-clip: border-box;
+}
+
+frame > label {
+  background-color: @quartz_chrome;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+separator {
+  color: @quartz_ink;
+  background-color: @quartz_ink;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+paned > separator {
+  color: @quartz_ink;
+  background-color: @quartz_ink;
+  background-image: none;
+  -gtk-icon-source: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+paned.vertical > separator {
+  min-width: 1px;
+  min-height: 1px;
+}
+
+/* GtkExpander and GtkTreeExpander both expose an `expander` disclosure node. */
+expander {
+  min-height: 12px;
+  min-width: 12px;
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-right.xpm");
+}
+
+expander:dir(rtl) {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-left.xpm");
+}
+
+expander:checked {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-down.xpm");
+}
+
+row:selected expander:not(:disabled),
+listview > row:selected expander:not(:disabled),
+gridview > child:selected expander:not(:disabled) {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-right-inverse.xpm");
+}
+
+row:selected expander:dir(rtl):not(:disabled),
+listview > row:selected expander:dir(rtl):not(:disabled),
+gridview > child:selected expander:dir(rtl):not(:disabled) {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-left-inverse.xpm");
+}
+
+row:selected expander:checked:not(:disabled),
+listview > row:selected expander:checked:not(:disabled),
+gridview > child:selected expander:checked:not(:disabled) {
+  -gtk-icon-source: url("../gtk-3.0/assets/arrow-down-inverse.xpm");
+}
+
+calendar {
+  border: 1px solid @quartz_ink;
+}
+
+calendar > grid > label.day-number:selected,
+calendar > grid > label.day-number:checked {
+  color: @quartz_paper;
+  background-color: @quartz_ink;
+}
+
+infobar,
+.app-notification,
+.card,
+preferencesgroup > box > box {
+  color: @quartz_ink;
+  background-color: @quartz_chrome;
+  border: 1px solid @quartz_ink;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+dialog actionbar,
+dialog .dialog-action-area,
+.dialog-action-box,
+.response-area {
+  padding: 8px;
+  border-top: 1px solid @quartz_ink;
+}
+
+dialog actionbar button,
+dialog .dialog-action-area button,
+.dialog-action-box > button,
+.response-area button {
+  margin: 2px 4px;
+  min-width: 72px;
+}
+
+window.dialog.message.csd .dialog-action-area {
+  padding: 8px;
+  border-top: 1px solid @quartz_ink;
+}
+
+window.dialog.message.csd .dialog-action-area button {
+  margin: 2px 4px;
+  padding: 1px 7px;
+  border: 1px solid @quartz_ink;
+  border-radius: 0;
+  min-width: 72px;
+}
+
+/* AdwMessageDialog loads its own stylesheet after the selected theme. Quartz
+ * is also imported as user CSS, so these exact nodes can restore the chrome. */
+window.background.messagedialog.solid-csd {
+  border: 1px solid @quartz_ink;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+window.messagedialog.solid-csd windowhandle > box.titlebar {
+  min-height: 17px;
+  padding: 0 3px;
+  border: 0;
+  border-bottom: 1px solid @quartz_ink;
+  border-radius: 0;
+  background-color: @quartz_titlebar;
+  background-image: none;
+}
+
+window.messagedialog.solid-csd windowhandle > box.titlebar label {
+  color: inherit;
+  background-color: transparent;
+  padding: 0 4px;
+}
+
+window.messagedialog box.titlebar,
+window.messagedialog .titlebar {
+  background-color: @quartz_titlebar;
+  background-image: none;
+}
+
+window.messagedialog box.titlebar label,
+window.messagedialog .titlebar label {
+  background-color: transparent;
+}
+
+decoration {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  /* GTK reserves transparent CSD extents outside the client. The first hard
+   * spread paints the window outline there; the shifted spread adds only the
+   * second bottom row, matching Marco's one-pixel shadow. */
+  box-shadow: 0 0 0 1px #000000, 0 1px 0 1px #000000;
+}
+
+window.csd,
+window.dialog,
+window.dialog.csd,
+dialog.csd,
+window.background.csd,
+window.background.solid-csd {
+  border-color: @quartz_ink;
+  border-style: solid;
+  border-width: 1px 1px 2px 1px;
+}
+
+/* Corner geometry follows GTK's own shape mask: every corner that is nonzero
+ * in base GTK uses the shared configured radius, while base-square corners
+ * stay at zero. Top-level windows, decorations, and title strips are
+ * deliberately absent from this rounded set. */
+.view:selected:focus,
+iconview:selected:focus,
+.view:selected,
+iconview:selected,
+textview > text:selected:focus,
+textview > text:selected,
+window.assistant .sidebar > label.highlight,
+spinbutton.vertical > text,
+spinbutton:not(.vertical),
+entry,
+button,
+button.osd,
+button.osd.image-button:only-child,
+menubutton.circular button,
+button.circular,
+modelbutton.flat,
+dropdown popover listview > row.activatable:selected,
+combobox popover listview > row.activatable:selected,
+.toolbar.osd,
+infobar .close,
+searchbar .close,
+popover.background > contents,
+popover.menu modelbutton,
+menubar > item popover.menu.background popover.menu.background > contents,
+.view.content-view.check:not(list),
+iconview.content-view.check:not(list),
+.content-view .tile check:not(list),
+checkbutton,
+check,
+treeview.view radio:selected:focus,
+treeview.view radio:selected,
+radio,
+progressbar > trough,
+progressbar > trough > progress,
+scale > trough,
+scale > trough > slider,
+scale.fine-tune > trough,
+scale.color > trough,
+levelbar.horizontal trough > block,
+levelbar.vertical trough > block,
+frame,
+.boxed-list,
+list.boxed-list,
+list.content,
+.card,
+preferencesgroup > box > box,
+expander-widget > box > title,
+calendar > grid > label.day-number:selected,
+calendar > grid > label.day-number:checked,
+filechooser gridview child,
+stacksidebar row:selected,
+.navigation-sidebar > row,
+button.sidebar-button,
+video image.osd,
+tooltip,
+tooltip.background,
+.tooltip,
+colorswatch#editor-color-sample,
+colorswatch#editor-color-sample > overlay,
+colorchooser .popover.osd,
+.osd .scale-popup button.flat,
+.scale-popup button:hover,
+shortcut,
+shortcut > .keycap,
+.keycap,
+popover.emoji-picker emoji,
+avatar,
+bottom-sheet > sheet > drag-handle,
+menubutton.suggested-action,
+menubutton.destructive-action,
+menubutton.opaque,
+menubutton.card > button,
+splitbutton,
+floating-sheet > sheet,
+emoji-completion-row,
+toast,
+window.about .main-page .app-version,
+dialog.about .main-page .app-version,
+tabbar tabbox > tabboxchild,
+tabbar tab,
+dnd tab,
+tabbar tab button.image-button,
+dnd tab button.image-button,
+tabbar tab indicator,
+dnd tab indicator,
+tabthumbnail,
+tabthumbnail .card picture,
+tabthumbnail .needs-attention > widget,
+cursor-handle > contents,
+indicatorbin > indicator,
+indicatorbin > mask {
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+/* Base GTK keeps these specialized descendants square even though their
+ * parent widget family is rounded. Window-integrated dialog buttons remain
+ * square as part of the top-level window exception. */
+.content-view .tile,
+spinbutton.vertical > text.flat,
+spinbutton.flat:not(.vertical),
+entry.flat:focus-within,
+entry.flat:backdrop,
+entry.flat:disabled,
+entry.flat,
+spinbutton.vertical > text > progress > trough > progress,
+spinbutton:not(.vertical) > progress > trough > progress,
+entry > progress > trough > progress,
+treeview entry.flat,
+treeview entry,
+button.color > colorswatch:only-child,
+button.color > colorswatch:only-child > overlay,
+.osd spinbutton:not(.vertical) > text,
+spinbutton:not(.vertical) > text,
+spinbutton:not(.vertical) > button.image-button.up:not(.flat),
+spinbutton:not(.vertical) > button.image-button.down:not(.flat),
+.osd spinbutton:not(.vertical) > button.image-button.up:not(.flat),
+.osd spinbutton:not(.vertical) > button.image-button.down:not(.flat),
+treeview spinbutton:not(.vertical),
+.toolbar.osd.left,
+.toolbar.osd.right,
+.toolbar.osd.top,
+.toolbar.osd.bottom,
+columnview.view:selected:focus,
+columnview.view:selected,
+treeview.view:selected:focus,
+treeview.view:selected,
+columnview.view button.dnd,
+columnview.view header.button.dnd,
+treeview.view button.dnd,
+treeview.view header.button.dnd,
+columnview.view > header > button,
+treeview.view > header > button,
+notebook > header > tabs > arrow,
+scale.horizontal.marks-before:not(.marks-after) > trough > slider,
+scale.horizontal.marks-after:not(.marks-before) > trough > slider,
+scale.vertical.marks-before:not(.marks-after) > trough > slider,
+scale.vertical.marks-after:not(.marks-before) > trough > slider,
+progressbar.osd > trough,
+progressbar.osd > trough > progress,
+levelbar.horizontal.discrete trough > block,
+levelbar.vertical.discrete trough > block,
+calendar > header > button,
+window.dialog.message.csd .dialog-action-area button,
+window.messagedialog .response-area > button,
+dialog.alert .response-area > button,
+button.emoji-section {
+  border-radius: 0;
+}
+
+/* Joined controls retain GTK's square internal seams. The wrapper list is
+ * toolkit-generic and covers ordinary, chooser, menu, and split buttons. */
+.linked:not(.vertical) > button:dir(ltr):not(:first-child),
+.linked:not(.vertical) > button:dir(rtl):not(:last-child),
+.linked:not(.vertical) > entry:dir(ltr):not(:first-child),
+.linked:not(.vertical) > entry:dir(rtl):not(:last-child),
+.linked:not(.vertical) > spinbutton:dir(ltr):not(:first-child),
+.linked:not(.vertical) > spinbutton:dir(rtl):not(:last-child),
+.linked:not(.vertical) > menubutton:dir(ltr):not(:first-child) > button,
+.linked:not(.vertical) > menubutton:dir(rtl):not(:last-child) > button,
+.linked:not(.vertical) > dropdown:dir(ltr):not(:first-child) > button,
+.linked:not(.vertical) > dropdown:dir(rtl):not(:last-child) > button,
+.linked:not(.vertical) > combobox:dir(ltr):not(:first-child) > box > button.combo,
+.linked:not(.vertical) > combobox:dir(rtl):not(:last-child) > box > button.combo,
+.linked:not(.vertical) > colorbutton:dir(ltr):not(:first-child) > button,
+.linked:not(.vertical) > colorbutton:dir(rtl):not(:last-child) > button,
+.linked:not(.vertical) > fontbutton:dir(ltr):not(:first-child) > button,
+.linked:not(.vertical) > fontbutton:dir(rtl):not(:last-child) > button,
+.linked:not(.vertical) > filechooserbutton:dir(ltr):not(:first-child) > button,
+.linked:not(.vertical) > filechooserbutton:dir(rtl):not(:last-child) > button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.linked:not(.vertical) > button:dir(ltr):not(:last-child),
+.linked:not(.vertical) > button:dir(rtl):not(:first-child),
+.linked:not(.vertical) > entry:dir(ltr):not(:last-child),
+.linked:not(.vertical) > entry:dir(rtl):not(:first-child),
+.linked:not(.vertical) > spinbutton:dir(ltr):not(:last-child),
+.linked:not(.vertical) > spinbutton:dir(rtl):not(:first-child),
+.linked:not(.vertical) > menubutton:dir(ltr):not(:last-child) > button,
+.linked:not(.vertical) > menubutton:dir(rtl):not(:first-child) > button,
+.linked:not(.vertical) > dropdown:dir(ltr):not(:last-child) > button,
+.linked:not(.vertical) > dropdown:dir(rtl):not(:first-child) > button,
+.linked:not(.vertical) > combobox:dir(ltr):not(:last-child) > box > button.combo,
+.linked:not(.vertical) > combobox:dir(rtl):not(:first-child) > box > button.combo,
+.linked:not(.vertical) > colorbutton:dir(ltr):not(:last-child) > button,
+.linked:not(.vertical) > colorbutton:dir(rtl):not(:first-child) > button,
+.linked:not(.vertical) > fontbutton:dir(ltr):not(:last-child) > button,
+.linked:not(.vertical) > fontbutton:dir(rtl):not(:first-child) > button,
+.linked:not(.vertical) > filechooserbutton:dir(ltr):not(:last-child) > button,
+.linked:not(.vertical) > filechooserbutton:dir(rtl):not(:first-child) > button {
+  border-right-style: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Header buttons are borderless, so they cannot complete an adjacent entry's
+ * frame. Keep linked header entries enclosed, including the trailing corner. */
+headerbar .linked:not(.vertical) > entry:dir(ltr):not(:last-child),
+headerbar .linked:not(.vertical) > entry:dir(rtl):not(:first-child),
+.titlebar .linked:not(.vertical) > entry:dir(ltr):not(:last-child),
+.titlebar .linked:not(.vertical) > entry:dir(rtl):not(:first-child) {
+  border-right-style: solid;
+  border-top-right-radius: @QUARTZ_BORDER_RADIUS@;
+  border-bottom-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+headerbar .linked:not(.vertical) > entry:dir(ltr):not(:first-child),
+headerbar .linked:not(.vertical) > entry:dir(rtl):not(:last-child),
+.titlebar .linked:not(.vertical) > entry:dir(ltr):not(:first-child),
+.titlebar .linked:not(.vertical) > entry:dir(rtl):not(:last-child) {
+  border-top-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-bottom-left-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+.linked.vertical > button:not(:first-child),
+.linked.vertical > entry:not(:first-child),
+.linked.vertical > spinbutton:not(:first-child),
+.linked.vertical > menubutton:not(:first-child) > button,
+.linked.vertical > dropdown:not(:first-child) > button,
+.linked.vertical > combobox:not(:first-child) > box > button.combo,
+.linked.vertical > colorbutton:not(:first-child) > button,
+.linked.vertical > fontbutton:not(:first-child) > button,
+.linked.vertical > filechooserbutton:not(:first-child) > button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.linked.vertical > button:not(:last-child),
+.linked.vertical > entry:not(:last-child),
+.linked.vertical > spinbutton:not(:last-child),
+.linked.vertical > menubutton:not(:last-child) > button,
+.linked.vertical > dropdown:not(:last-child) > button,
+.linked.vertical > combobox:not(:last-child) > box > button.combo,
+.linked.vertical > colorbutton:not(:last-child) > button,
+.linked.vertical > fontbutton:not(:last-child) > button,
+.linked.vertical > filechooserbutton:not(:last-child) > button {
+  border-bottom-style: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+splitbutton > button:dir(ltr),
+splitbutton > menubutton > button:dir(rtl) {
+  border-right-style: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+splitbutton > button:dir(rtl),
+splitbutton > menubutton > button:dir(ltr) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+spinbutton.vertical > button.up {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+spinbutton.vertical > button.down {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+spinbutton:not(.vertical) > button.image-button.up:not(.flat):dir(ltr):last-child,
+spinbutton:not(.vertical) > button.image-button.down:not(.flat):dir(ltr):last-child,
+.osd spinbutton:not(.vertical) > button.image-button.up:not(.flat):dir(ltr):last-child,
+.osd spinbutton:not(.vertical) > button.image-button.down:not(.flat):dir(ltr):last-child {
+  border-radius: 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0;
+}
+
+spinbutton:not(.vertical) > button.image-button.up:not(.flat):dir(rtl):first-child,
+spinbutton:not(.vertical) > button.image-button.down:not(.flat):dir(rtl):first-child,
+.osd spinbutton:not(.vertical) > button.image-button.up:not(.flat):dir(rtl):first-child,
+.osd spinbutton:not(.vertical) > button.image-button.down:not(.flat):dir(rtl):first-child {
+  border-radius: @QUARTZ_BORDER_RADIUS@ 0 0 @QUARTZ_BORDER_RADIUS@;
+}
+
+levelbar.horizontal:not(.discrete) trough > block:dir(ltr),
+colorswatch#add-color-button {
+  border-radius: @QUARTZ_BORDER_RADIUS@ 0 0 @QUARTZ_BORDER_RADIUS@;
+}
+
+levelbar.horizontal:not(.discrete) trough > block:dir(rtl) {
+  border-radius: 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0;
+}
+
+levelbar.horizontal:not(.discrete) trough > block.empty,
+levelbar.horizontal:not(.discrete) trough > block.full,
+colorswatch#add-color-button:only-child {
+  border-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+levelbar.horizontal.discrete trough > block:first-child {
+  border-radius: @QUARTZ_BORDER_RADIUS@ 0 0 @QUARTZ_BORDER_RADIUS@;
+}
+
+levelbar.horizontal.discrete trough > block:last-child {
+  border-radius: 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@ 0;
+}
+
+levelbar.vertical.discrete trough > block:first-child,
+bottom-sheet > sheet,
+bottom-sheet > sheet > outline {
+  border-top-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-top-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+levelbar.vertical.discrete trough > block:last-child,
+.app-notification {
+  border-radius: 0 0 @QUARTZ_BORDER_RADIUS@ @QUARTZ_BORDER_RADIUS@;
+}
+
+colorswatch.top,
+colorswatch.top > overlay {
+  border-top-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-top-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+colorswatch.bottom,
+colorswatch.bottom > overlay {
+  border-bottom-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-bottom-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+colorswatch.left,
+colorswatch:first-child:not(.top),
+colorswatch.left > overlay,
+colorswatch:first-child:not(.top) > overlay {
+  border-top-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-bottom-left-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+colorswatch.right,
+colorswatch:last-child:not(.bottom),
+colorswatch.right > overlay,
+colorswatch:last-child:not(.bottom) > overlay {
+  border-top-right-radius: @QUARTZ_BORDER_RADIUS@;
+  border-bottom-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+list.boxed-list > row:first-child,
+list.content > row:first-child,
+.boxed-list > row:first-child {
+  border-top-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-top-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+list.boxed-list > row:last-child,
+list.content > row:last-child,
+.boxed-list > row:last-child {
+  border-bottom-left-radius: @QUARTZ_BORDER_RADIUS@;
+  border-bottom-right-radius: @QUARTZ_BORDER_RADIUS@;
+}
+
+cursor-handle.top > contents {
+  border-top-right-radius: 0;
+}
+
+cursor-handle.bottom > contents,
+cursor-handle.insertion-cursor > contents {
+  border-top-left-radius: 0;
+}
+
+/* System 7 close/zoom highlight: native pixels, shared by window controls.
+ * Keep the hit target stable; dragging outside cancels the pressed artwork. */
+windowcontrols button.close:active:hover:not(:disabled),
+windowcontrols button.maximize:active:hover:not(:disabled),
+windowcontrols button.minimize:active:hover:not(:disabled) {
+  background-color: @quartz_titlebar;
+  background-image: url("../gtk-3.0/assets/titlebutton-pressed-system7-gtk.xpm");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+  border-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  transform: none;
+}
+
+windowcontrols button.close:active:hover:not(:disabled) image,
+windowcontrols button.maximize:active:hover:not(:disabled) image,
+windowcontrols button.minimize:active:hover:not(:disabled) image {
+  opacity: 0;
+}

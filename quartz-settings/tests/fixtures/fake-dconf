@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -eu
+
+[[ "${1:-}" == "watch" && "${2:-}" == "/org/mate/" ]] || exit 2
+state="${QUARTZ_FAKE_GSETTINGS_STATE:?}"
+
+# Simulate the large notification burst produced by a panel-layout reset.
+printf '%s\n' '31' >"$state/top/size"
+printf '%s\n' '6000' >"$state/top/opacity"
+for _event in {1..80}; do
+  printf '%s\n' \
+    '/org/mate/panel/toplevels/top/size' \
+    '  31' \
+    '/org/mate/panel/toplevels/top/background/opacity' \
+    '  6000'
+done
+
+# Keep the monitor alive long enough for the test harness to inspect the one
+# debounced reconciliation without starting a second simulated reset.
+sleep 10

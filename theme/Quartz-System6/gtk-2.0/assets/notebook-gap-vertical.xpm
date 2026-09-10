@@ -1,0 +1,8 @@
+/* XPM */
+static char * notebook_gap_vertical_xpm[] = {
+"1 3 2 1",
+"  c None",
+"+ c #FFFFFF",
+" ",
+"+",
+" "};

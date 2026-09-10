@@ -1,0 +1,260 @@
+#!/usr/bin/env bash
+
+# Keep MATE's shared panel geometry in sync with the selected Quartz theme.
+# Panel layout tools replace the complete relocatable settings tree, so this
+# helper observes that shared tree and restores the theme-owned values for any
+# horizontal panel created by a reset.
+
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+readonly theme_name="Quartz-System6"
+readonly panel_height_px="25"
+readonly panel_opacity="65535"
+readonly panel_background="${QUARTZ_PANEL_BACKGROUND:-$HOME/.themes/$theme_name/gtk-3.0/assets/panel-bar.xpm}"
+
+panel_lock_path() {
+  local runtime_dir="${XDG_RUNTIME_DIR:-}"
+  local user_id="${UID:-}"
+
+  [[ -n "$user_id" ]] || user_id="$(id -u)"
+  if [[ -z "$runtime_dir" || ! -d "$runtime_dir" || ! -w "$runtime_dir" ]]; then
+    runtime_dir="${TMPDIR:-/tmp}"
+  fi
+  printf '%s/quartz-panel-theme-%s.lock\n' "${runtime_dir%/}" "$user_id"
+}
+
+with_panel_theme_lock() {
+  local lock_path=""
+
+  # Palette changes and layout-reset notifications can arrive together. On
+  # Ubuntu MATE, serialize their shared GSettings writes so the watcher and
+  # a synchronous Quartz Settings refresh cannot interleave.
+  lock_path="$(panel_lock_path)"
+  (
+    flock -x 9
+    "$@"
+  ) 9>"$lock_path"
+}
+
+schema_exists() {
+  # Do not use grep -q here: with pipefail it can close the pipe early and make
+  # gsettings' SIGPIPE look like a missing schema.
+  gsettings list-schemas 2>/dev/null | grep -Fx -- "$1" >/dev/null
+}
+
+setting_is_writable() {
+  [[ "$(gsettings writable "$1" "$2" 2>/dev/null || true)" == "true" ]]
+}
+
+quartz_theme_is_selected() {
+  schema_exists org.mate.interface || return 1
+  [[ "$(gsettings get org.mate.interface gtk-theme 2>/dev/null || true)" == "'$theme_name'" ]]
+}
+
+panel_ids() {
+  gsettings get org.mate.panel toplevel-id-list 2>/dev/null |
+    grep -o "'[^']*'" |
+    tr -d "'" || true
+}
+
+resolved_panel_background() {
+  local digest=""
+  local generation=""
+
+  [[ -r "$panel_background" ]] || return 1
+  if command -v sha256sum >/dev/null 2>&1; then
+    digest="$(sha256sum -- "$panel_background" 2>/dev/null | awk '{ print $1 }')"
+    if [[ "$digest" =~ ^[[:xdigit:]]{64}$ ]]; then
+      generation="${panel_background%.xpm}-$digest.xpm"
+      if [[ -r "$generation" ]]; then
+        printf '%s\n' "$generation"
+        return
+      fi
+    fi
+  fi
+
+  # A theme installed before content-addressed panel assets were introduced
+  # remains usable; its stable bitmap simply cannot force an in-place reload.
+  printf '%s\n' "$panel_background"
+}
+
+panel_background_matches() {
+  local background_schema="$1"
+  local expected_image="$2"
+  local configured_image=""
+
+  configured_image="$(gsettings get "$background_schema" image 2>/dev/null || true)"
+
+  [[ "$(gsettings get "$background_schema" type 2>/dev/null || true)" == "'image'" ]] &&
+    [[ "$configured_image" == "'$expected_image'" ]] &&
+    [[ -r "$expected_image" ]] &&
+    [[ "$(gsettings get "$background_schema" fit 2>/dev/null || true)" == "false" ]] &&
+    [[ "$(gsettings get "$background_schema" stretch 2>/dev/null || true)" == "false" ]] &&
+    [[ "$(gsettings get "$background_schema" rotate 2>/dev/null || true)" == "false" ]] &&
+    [[ "$(gsettings get "$background_schema" opacity 2>/dev/null || true)" == "$panel_opacity" ]]
+}
+
+apply_panel_theme() {
+  local panel_id=""
+  local panel_schema=""
+  local background_schema=""
+  local orientation=""
+  local target_image=""
+
+  quartz_theme_is_selected || return 0
+  target_image="$(resolved_panel_background)" || return 0
+  schema_exists org.mate.panel || return 0
+
+  while IFS= read -r panel_id; do
+    [[ "$panel_id" =~ ^[[:alnum:]_-]+$ ]] || continue
+    panel_schema="org.mate.panel.toplevel:/org/mate/panel/toplevels/$panel_id/"
+    background_schema="org.mate.panel.toplevel.background:/org/mate/panel/toplevels/$panel_id/background/"
+    orientation="$(gsettings get "$panel_schema" orientation 2>/dev/null || true)"
+    [[ "$orientation" == "'top'" || "$orientation" == "'bottom'" ]] || continue
+
+    if setting_is_writable "$panel_schema" size &&
+       [[ "$(gsettings get "$panel_schema" size 2>/dev/null || true)" != "$panel_height_px" ]]; then
+      gsettings set "$panel_schema" size "$panel_height_px"
+    fi
+
+    setting_is_writable "$background_schema" type || continue
+    setting_is_writable "$background_schema" image || continue
+    setting_is_writable "$background_schema" fit || continue
+    setting_is_writable "$background_schema" stretch || continue
+    setting_is_writable "$background_schema" rotate || continue
+    setting_is_writable "$background_schema" opacity || continue
+
+    if ! panel_background_matches "$background_schema" "$target_image"; then
+      # The renderer gives each distinct bitmap a content-addressed pathname.
+      # A changed palette therefore invalidates mate-panel's image cache while
+      # every observable background state remains valid for hosted applets.
+      gsettings set "$background_schema" image "$target_image"
+      gsettings set "$background_schema" fit false
+      gsettings set "$background_schema" stretch false
+      gsettings set "$background_schema" rotate false
+      gsettings set "$background_schema" opacity "$panel_opacity"
+      gsettings set "$background_schema" type 'image'
+    fi
+  done < <(panel_ids)
+}
+
+panel_theme_matches() {
+  local panel_id=""
+  local panel_schema=""
+  local background_schema=""
+  local orientation=""
+  local found_horizontal="false"
+  local target_image=""
+
+  quartz_theme_is_selected || return 0
+  target_image="$(resolved_panel_background)" || return 1
+  schema_exists org.mate.panel || return 1
+
+  while IFS= read -r panel_id; do
+    [[ "$panel_id" =~ ^[[:alnum:]_-]+$ ]] || continue
+    panel_schema="org.mate.panel.toplevel:/org/mate/panel/toplevels/$panel_id/"
+    background_schema="org.mate.panel.toplevel.background:/org/mate/panel/toplevels/$panel_id/background/"
+    orientation="$(gsettings get "$panel_schema" orientation 2>/dev/null || true)"
+    [[ "$orientation" == "'top'" || "$orientation" == "'bottom'" ]] || continue
+    found_horizontal="true"
+    [[ "$(gsettings get "$panel_schema" size 2>/dev/null || true)" == "$panel_height_px" ]] || return 1
+    panel_background_matches "$background_schema" "$target_image" || return 1
+  done < <(panel_ids)
+
+  [[ "$found_horizontal" == "true" ]]
+}
+
+panel_state_snapshot() {
+  local panel_pid=""
+  local toplevels=""
+
+  panel_pid="$(pgrep -xo mate-panel 2>/dev/null || true)"
+  toplevels="$(gsettings get org.mate.panel toplevel-id-list 2>/dev/null || true)"
+  printf '%s|%s\n' "$panel_pid" "$toplevels"
+}
+
+wait_for_panel_quiescence() {
+  local previous_state=""
+  local current_state=""
+  local stable_checks=0
+
+  # mate-panel --reset writes a large dconf tree and layout tools may replace
+  # the panel process immediately afterwards. Do not add our theme-owned
+  # writes while that hand-off is still moving. Four identical snapshots at
+  # 250 ms intervals keep the helper component-generic and avoid relying on a
+  # particular layout tool or process.
+  previous_state="$(panel_state_snapshot)"
+  for _attempt in {1..20}; do
+    sleep 0.25
+    current_state="$(panel_state_snapshot)"
+    if [[ "$current_state" == "$previous_state" ]]; then
+      stable_checks=$((stable_checks + 1))
+      if (( stable_checks >= 4 )); then
+        return 0
+      fi
+    else
+      stable_checks=0
+      previous_state="$current_state"
+    fi
+  done
+
+  return 0
+}
+
+watch_panel_theme() {
+  local changed_path=""
+  local relevant_change="false"
+
+  command -v dconf >/dev/null 2>&1 || {
+    printf 'error: dconf is required to watch MATE panel settings\n' >&2
+    return 1
+  }
+
+  with_panel_theme_lock apply_panel_theme
+  while true; do
+    while IFS= read -r changed_path; do
+      case "$changed_path" in
+        /org/mate/panel/*|/org/mate/interface/gtk-theme)
+          relevant_change="true"
+          ;;
+      esac
+
+      # Layout loaders replace a large settings tree. Drain the complete burst
+      # and reconcile it once after one second of quiet instead of racing the
+      # loader and spawning one gsettings pass per key.
+      while IFS= read -r -t 1 changed_path; do
+        case "$changed_path" in
+          /org/mate/panel/*|/org/mate/interface/gtk-theme)
+            relevant_change="true"
+            ;;
+        esac
+      done
+      if [[ "$relevant_change" == "true" ]]; then
+        wait_for_panel_quiescence
+        with_panel_theme_lock apply_panel_theme
+        relevant_change="false"
+      fi
+    done < <(dconf watch /org/mate/ 2>/dev/null)
+    sleep 1
+  done
+}
+
+case "${1:---apply}" in
+  --apply|--refresh)
+    with_panel_theme_lock apply_panel_theme
+    ;;
+  --check)
+    with_panel_theme_lock panel_theme_matches
+    ;;
+  --watch)
+    watch_panel_theme
+    ;;
+  --help)
+    printf 'usage: %s [--apply|--refresh|--check|--watch]\n' "$0"
+    ;;
+  *)
+    printf 'error: unknown option: %s\n' "$1" >&2
+    exit 2
+    ;;
+esac

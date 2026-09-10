@@ -1,0 +1,74 @@
+/* Optional Quartz browser chrome. Web pages retain their own styling. */
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+  :root {
+    --quartz-paper: @QUARTZ_APPLICATION_BG@;
+    --quartz-title: @QUARTZ_TITLEBAR_BG@;
+    --quartz-menu: @QUARTZ_MENUBAR_BG@;
+    --toolbar-bgcolor: var(--quartz-paper) !important;
+    --toolbar-color: #000 !important;
+    --lwt-text-color: #000 !important;
+    --lwt-accent-color: var(--quartz-title) !important;
+    --toolbar-field-background-color: var(--quartz-paper) !important;
+    --toolbar-field-color: #000 !important;
+    --toolbar-field-focus-background-color: var(--quartz-paper) !important;
+    --toolbar-field-focus-color: #000 !important;
+    --toolbar-field-border-color: #000 !important;
+    --toolbar-field-focus-border-color: #000 !important;
+    --arrowpanel-background: var(--quartz-menu) !important;
+    --arrowpanel-color: #000 !important;
+    --arrowpanel-border-color: #000 !important;
+    --arrowpanel-border-radius: 0px !important;
+    --tab-min-height: 28px !important;
+    --tab-border-radius: 0px !important;
+    --tab-block-margin: 2px !important;
+    --toolbarbutton-border-radius: 0px !important;
+    --toolbarbutton-hover-background: #0002 !important;
+    --toolbarbutton-active-background: #0003 !important;
+    --urlbarView-highlight-background: #000 !important;
+    --urlbarView-highlight-color: #fff !important;
+  }
+  #navigator-toolbox, #browser, #TabsToolbar {
+    background: var(--quartz-title) !important;
+    color: #000 !important;
+  }
+  #navigator-toolbox { border-bottom: 1px solid #000 !important; }
+  #navigator-toolbox, menupopup, panel {
+    font-family: "ChiKareGo2", sans-serif !important;
+    font-size: 16px !important;
+  }
+  #toolbar-menubar { background: var(--quartz-menu) !important; }
+  #nav-bar, #PersonalToolbar {
+    background: var(--quartz-paper) !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    border-top: 1px solid #000 !important;
+  }
+  .tab-background {
+    background: var(--quartz-title) !important;
+    border: 1px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .tab-background[selected] {
+    background: var(--quartz-paper) !important;
+    box-shadow: inset 0 2px #000 !important;
+  }
+  .tab-label { color: #000 !important; }
+  .tabbrowser-tab:not([selected]) .tab-label { opacity: .7; }
+  #urlbar-background, #searchbar {
+    background: var(--quartz-paper) !important;
+    border: 1px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  #urlbar-input, #searchbar { font-family: "Geneva", sans-serif !important; }
+  #urlbar-input::selection { background: #000 !important; color: #fff !important; }
+  .titlebar-button {
+    color: #000 !important;
+    border-radius: 0 !important;
+  }
+  menupopup, .panel-subview-body, .panel-header {
+    background: var(--quartz-menu) !important;
+    color: #000 !important;
+  }
+}

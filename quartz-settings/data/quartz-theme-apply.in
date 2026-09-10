@@ -1,0 +1,294 @@
+#!/usr/bin/env bash
+
+# Apply one shared Quartz theme to GTK 2, GTK 3, GTK 4, Marco, and MATE
+# panels. This helper never reads or writes application-private preferences.
+
+set -Eeuo pipefail
+IFS=$'\n\t'
+umask 022
+
+readonly theme_name="Quartz-System6"
+readonly default_window_layout="cupertino"
+readonly helper_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+readonly panel_theme_helper="$helper_dir/quartz-panel-theme"
+readonly panel_theme_service="quartz-panel-theme.service"
+readonly theme_source_dir="${QUARTZ_THEME_SOURCE_DIR:-@THEME_SOURCE_DIR@}"
+readonly theme_renderer="$theme_source_dir/render-theme.sh"
+readonly data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+readonly config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly palette_dir="$config_home/quartz-settings"
+readonly palette_file="$palette_dir/theme.conf"
+readonly theme_parent="$HOME/.themes"
+readonly theme_destination="$theme_parent/$theme_name"
+
+palette_tmp=""
+theme_stage=""
+
+cleanup() {
+  if [[ -n "$palette_tmp" && -f "$palette_tmp" ]]; then
+    unlink -- "$palette_tmp"
+  fi
+  if [[ -n "$theme_stage" && -d "$theme_stage" && ! -L "$theme_stage" ]]; then
+    find "$theme_stage" -depth -delete
+  fi
+}
+trap cleanup EXIT
+
+die() {
+  printf 'error: %s\n' "$*" >&2
+  exit 1
+}
+
+require_command() {
+  command -v "$1" >/dev/null 2>&1 || die "required command is missing: $1"
+}
+
+schema_exists() {
+  gsettings list-schemas 2>/dev/null | grep -Fx -- "$1" >/dev/null
+}
+
+setting_is_writable() {
+  [[ "$(gsettings writable "$1" "$2" 2>/dev/null || true)" == "true" ]]
+}
+
+normalize_color() {
+  local color_value="$1"
+
+  [[ "$color_value" =~ ^#[[:xdigit:]]{6}$ ]] ||
+    die "colors must use opaque #RRGGBB values"
+  printf '%s' "$color_value" | tr '[:upper:]' '[:lower:]'
+}
+
+read_radius() {
+  local candidate=""
+  local radius=""
+
+  for candidate in \
+    "$palette_file" \
+    "$theme_destination/theme.conf" \
+    "$theme_source_dir/theme.conf"; do
+    [[ -r "$candidate" ]] || continue
+    radius="$(awk -F= '$1 == "QUARTZ_BORDER_RADIUS_PX" { print $2; exit }' "$candidate")"
+    if [[ "$radius" =~ ^(0|[1-9][0-9]?)$ ]] && (( 10#$radius <= 64 )); then
+      printf '%s\n' "$((10#$radius))"
+      return
+    fi
+  done
+
+  printf '5\n'
+}
+
+read_window_layout() {
+  local candidate=""
+  local candidate_layout=""
+
+  for candidate in \
+    "$palette_file" \
+    "$theme_destination/theme.conf" \
+    "$theme_source_dir/theme.conf"; do
+    [[ -r "$candidate" ]] || continue
+    candidate_layout="$(awk -F= '$1 == "QUARTZ_WINDOW_LAYOUT" { print $2; exit }' "$candidate")"
+    case "$candidate_layout" in
+      cupertino|redmond|redmond-reversed)
+        printf '%s\n' "$candidate_layout"
+        return
+        ;;
+    esac
+  done
+
+  printf '%s\n' "$default_window_layout"
+}
+
+find_fallback_theme() {
+  local component="$1"
+  local root=""
+  local candidate=""
+  local candidate_name=""
+
+  for root in "$HOME/.themes" "$data_home/themes" /usr/share/themes; do
+    [[ -d "$root" ]] || continue
+    for candidate in "$root"/*/"$component"; do
+      [[ -d "$candidate" ]] || continue
+      candidate_name="${candidate%/"$component"}"
+      candidate_name="${candidate_name##*/}"
+      if [[ -n "$candidate_name" && "$candidate_name" != "$theme_name" ]]; then
+        printf '%s\n' "$candidate_name"
+        return
+      fi
+    done
+  done
+}
+
+reload_theme_setting() {
+  local schema="$1"
+  local key="$2"
+  local component="$3"
+  local fallback=""
+
+  schema_exists "$schema" || return 0
+  setting_is_writable "$schema" "$key" || return 0
+  fallback="$(find_fallback_theme "$component" || true)"
+  if [[ -n "$fallback" ]]; then
+    gsettings set "$schema" "$key" "$fallback"
+    # Prevent the fallback and restored value from being coalesced into an
+    # unchanged final notification in long-running desktop processes.
+    sleep 0.1
+  fi
+  gsettings set "$schema" "$key" "$theme_name"
+}
+
+prepare_live_display() {
+  local display_name="${DISPLAY:-}"
+  local session_id=""
+
+  if [[ -z "$display_name" ]] && command -v loginctl >/dev/null 2>&1; then
+    session_id="$(loginctl show-user "$(id -u)" -p Display --value 2>/dev/null || true)"
+    if [[ -n "$session_id" ]]; then
+      display_name="$(loginctl show-session "$session_id" -p Display --value 2>/dev/null || true)"
+    fi
+  fi
+
+  [[ -n "$display_name" ]] || return 1
+  export DISPLAY="$display_name"
+  if [[ -z "${XAUTHORITY:-}" && -f "$HOME/.Xauthority" ]]; then
+    export XAUTHORITY="$HOME/.Xauthority"
+  fi
+
+  return 0
+}
+
+reload_marco_theme_if_running() {
+  pgrep -x marco >/dev/null 2>&1 || return 1
+  prepare_live_display || return 1
+  marco-message reload-theme >/dev/null 2>&1
+}
+
+apply_window_button_layout() {
+  local schema="$1"
+  local key="$2"
+
+  schema_exists "$schema" || return 0
+  setting_is_writable "$schema" "$key" || return 0
+  gsettings set "$schema" "$key" "$window_button_layout"
+}
+
+menubar_bg=""
+titlebar_bg=""
+application_bg=""
+window_layout=""
+
+while (( $# > 0 )); do
+  case "$1" in
+    --menubar)
+      (( $# >= 2 )) || die "--menubar requires a color"
+      menubar_bg="$(normalize_color "$2")"
+      shift 2
+      ;;
+    --titlebar)
+      (( $# >= 2 )) || die "--titlebar requires a color"
+      titlebar_bg="$(normalize_color "$2")"
+      shift 2
+      ;;
+    --application)
+      (( $# >= 2 )) || die "--application requires a color"
+      application_bg="$(normalize_color "$2")"
+      shift 2
+      ;;
+    --window-layout)
+      (( $# >= 2 )) || die "--window-layout requires a layout"
+      window_layout="$2"
+      shift 2
+      ;;
+    --help)
+      printf 'usage: %s --menubar COLOR --titlebar COLOR --application COLOR [--window-layout LAYOUT]\n' "$0"
+      exit 0
+      ;;
+    *) die "unknown option: $1" ;;
+  esac
+done
+
+[[ -n "$menubar_bg" ]] || die "--menubar is required"
+[[ -n "$titlebar_bg" ]] || die "--titlebar is required"
+[[ -n "$application_bg" ]] || die "--application is required"
+[[ -n "$window_layout" ]] || window_layout="$(read_window_layout)"
+case "$window_layout" in
+  cupertino)
+    window_button_layout="close:maximize"
+    ;;
+  redmond)
+    window_button_layout=":minimize,maximize,close"
+    ;;
+  redmond-reversed)
+    window_button_layout="close,minimize,maximize:"
+    ;;
+  *) die "window layout must be cupertino, redmond, or redmond-reversed" ;;
+esac
+readonly window_layout window_button_layout
+
+for required in awk bash cp find grep install mktemp mv pgrep tr unlink; do
+  require_command "$required"
+done
+if [[ "${QUARTZ_SKIP_DESKTOP_REFRESH:-0}" != "1" ]]; then
+  require_command gsettings
+  require_command marco-message
+  require_command systemctl
+  [[ -x "$panel_theme_helper" ]] ||
+    die "panel theme helper not found: $panel_theme_helper"
+fi
+[[ -x "$theme_renderer" ]] || die "theme renderer not found: $theme_renderer"
+
+install -d -m 0755 -- "$palette_dir" "$theme_parent"
+palette_tmp="$(mktemp "$palette_dir/.theme.conf.XXXXXX")"
+printf 'QUARTZ_BORDER_RADIUS_PX=%s\n' "$(read_radius)" >"$palette_tmp"
+printf 'QUARTZ_WINDOW_LAYOUT=%s\n' "$window_layout" >>"$palette_tmp"
+printf 'QUARTZ_MENUBAR_BG=%s\n' "$menubar_bg" >>"$palette_tmp"
+printf 'QUARTZ_TITLEBAR_BG=%s\n' "$titlebar_bg" >>"$palette_tmp"
+printf 'QUARTZ_APPLICATION_BG=%s\n' "$application_bg" >>"$palette_tmp"
+chmod 0644 "$palette_tmp"
+
+theme_stage="$(mktemp -d "$theme_parent/.$theme_name.XXXXXX")"
+bash "$theme_renderer" --config "$palette_tmp" "$theme_stage/rendered"
+
+[[ ! -L "$theme_destination" ]] ||
+  die "theme destination must not be a symbolic link: $theme_destination"
+[[ ! -e "$theme_destination" || -d "$theme_destination" ]] ||
+  die "theme destination is not a directory: $theme_destination"
+install -d -m 0755 -- "$theme_destination"
+cp -R -- "$theme_stage/rendered/." "$theme_destination/"
+
+mv -- "$palette_tmp" "$palette_file"
+palette_tmp=""
+
+if [[ "${QUARTZ_SKIP_DESKTOP_REFRESH:-0}" != "1" ]]; then
+  python3 "$theme_source_dir/typography.py" --restore
+  apply_window_button_layout org.mate.Marco.general button-layout
+  apply_window_button_layout org.mate.interface gtk-decoration-layout
+  apply_window_button_layout org.gnome.desktop.wm.preferences button-layout
+  reload_theme_setting org.mate.interface gtk-theme gtk-3.0
+  reload_theme_setting org.gnome.desktop.interface gtk-theme gtk-4.0
+  reload_theme_setting org.mate.Marco.general theme metacity-1
+  if schema_exists org.mate.background &&
+     setting_is_writable org.mate.background show-desktop-icons; then
+    gsettings set org.mate.background show-desktop-icons true
+  fi
+  systemctl --user daemon-reload
+  systemctl --user enable "$panel_theme_service" >/dev/null
+  # Refresh synchronously without restarting the long-lived watcher. The
+  # helper serializes this write pass with any dconf-triggered reconciliation.
+  "$panel_theme_helper" --refresh
+  if systemctl --user is-active --quiet "$panel_theme_service"; then
+    panel_refresh_message='Desktop panel palette refreshed; its watcher remained running.'
+  else
+    systemctl --user start "$panel_theme_service"
+    panel_refresh_message='Desktop panel palette refreshed and its watcher was started.'
+  fi
+  if reload_marco_theme_if_running; then
+    marco_refresh_message='Window frames reloaded with the new shared palette.'
+  else
+    marco_refresh_message='No running window manager was available to reload.'
+  fi
+fi
+
+printf 'Applied the Quartz theme globally. %s %s\n' \
+  "${panel_refresh_message:-Desktop refresh was skipped.}" \
+  "${marco_refresh_message:-Window-frame refresh was skipped.}"

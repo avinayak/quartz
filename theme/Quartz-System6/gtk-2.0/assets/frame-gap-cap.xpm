@@ -1,0 +1,5 @@
+/* XPM */
+static char * frame_gap_cap_xpm[] = {
+"1 1 1 1",
+". c #000000",
+"."};

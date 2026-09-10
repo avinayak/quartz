@@ -1,0 +1,23 @@
+/* XPM */
+static const char *quartz_system7_wristwatch[] = {
+"16 16 3 1",
+". c None",
+"X c #000000",
+"o c #FFFFFF",
+"..XXXXXX........",
+"..XXXXXX........",
+"..XXXXXX........",
+"..XXXXXX........",
+".XooooooX.......",
+"XooooXoooX......",
+"XooooXoooX......",
+"XooooXoooXX.....",
+"XooXXXoooXX.....",
+"XooooooooX......",
+"XooooooooX......",
+".XooooooX.......",
+"..XXXXXX........",
+"..XXXXXX........",
+"..XXXXXX........",
+"..XXXXXX........"
+};

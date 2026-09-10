@@ -1,0 +1,720 @@
+[
+  {
+    "file": "otb/spleen-spleen-12x24-bdf.otb",
+    "family": "Spleen",
+    "sizes": [
+      24.0
+    ],
+    "sha256": "46ed2d3096319b0488fc3c3ae7be2c19508236b568d997332c3d63278792826d"
+  },
+  {
+    "file": "otb/spleen-spleen-16x32-bdf.otb",
+    "family": "Spleen",
+    "sizes": [
+      32.0
+    ],
+    "sha256": "ef36c5c51fd3fac3bc99c5a17f6849b56deb3ef55f0e075b6aac95d5ff784e14"
+  },
+  {
+    "file": "otb/spleen-spleen-32x64-bdf.otb",
+    "family": "Spleen",
+    "sizes": [
+      64.0
+    ],
+    "sha256": "c408cccccf7c6f162f85666cd5a308c6b861ffade97358723ec024e5bf523108"
+  },
+  {
+    "file": "otb/spleen-spleen-5x8-bdf.otb",
+    "family": "Spleen",
+    "sizes": [
+      8.0
+    ],
+    "sha256": "945801f1a01d183c123c59da8b3621d34db801aecba6ca2026228b429b9aedab"
+  },
+  {
+    "file": "otb/spleen-spleen-6x12-bdf.otb",
+    "family": "Spleen",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "0b5c7f11523ee7e3bb47fc437ca45db77980cd59faec74f04d6394f6974385ef"
+  },
+  {
+    "file": "otb/spleen-spleen-8x16-bdf.otb",
+    "family": "Spleen",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "21cbf9131dc2e145db9e7d08a7f791021bf9584e195d9872f20aca12d81d70c6"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen10x20b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      20.0
+    ],
+    "sha256": "baaa7207ed7da215b5a9f043d224d6f761277c4eb26bedf201530b304bdfc3b7"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen10x20r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      20.0
+    ],
+    "sha256": "489814fac0d0f7c3f34d8c434b50339e3c66065f8521e6f68947ef856ea7d637"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen5x9b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      9.0
+    ],
+    "sha256": "148235355f78e99a25fcd2f0ba79677ab660865bed6c80ba763151ae323046e4"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen5x9r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      9.0
+    ],
+    "sha256": "0e97e6dc61d457632336996a3720a6866e20f0d06855c833225bc8751c5250f0"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen6x12b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "6f6e523dc08dc45cb1f8330777487f0bb28a9bb54dad8780e61d6a9f8b22a1be"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen6x12r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "5a1e9394e99110fc7a438acb97e117b027bd1f9764db8073dc46dfb15e19ef77"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen7x13b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "fd883262b11d8ce5e7b2b22ffb921061c8f48f6a9755b4860e29684bf1a40f98"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen7x13r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "cb1efa593429ba3d7361baed1d41343f95c25c8cdb439f097f528b47d48ac4e0"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen7x14b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "1a20853b8c0ae7f8f4a3b3a9ba96a0c400500072d251f3674b360b0b960cf190"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen7x14r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "9aa6b19f1a33097e233340789161e6a273a47c7522f44de301d07f30692ffd36"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen8x15b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      15.0
+    ],
+    "sha256": "98bc174604400b39d111051af91d25f00c103f97eb7a2e4b6adb50090e81a012"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen8x15r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      15.0
+    ],
+    "sha256": "7ca61a1d297c78dfde0969823bb53e82db856b85fad51446f111b518e3e5ca51"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen8x16b-otb.otb",
+    "family": "Tamzen Bold",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "544425a01bc9fa605da9c649ad23fe069a0a32e641c4be7eea86c636e7f2c852"
+  },
+  {
+    "file": "otb/tamzen-font-tamzen8x16r-otb.otb",
+    "family": "Tamzen",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "828ec26291cf5916d6c14baf74f7ef2ba5c98b82b08d1b9de36fb88c80926efe"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline10x20b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      20.0
+    ],
+    "sha256": "ae171a5f82594b08856b185a7f45994e43a47a6d464470188d7ce3720e12e212"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline10x20r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      20.0
+    ],
+    "sha256": "5070608f579ad1e6860dd8e640116b239abfdb67438c714f2b41e88c9da43c42"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline5x9b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      9.0
+    ],
+    "sha256": "cc65ea9fb8ca88fb61e8ac128fd1e571a592fc56f7600d0eecd4a78b5d223354"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline5x9r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      9.0
+    ],
+    "sha256": "1ffa7ec8f60a4153232175b639941d2f7c5aa1fa6f4505bda2195b25525067c1"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline6x12b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "2bd9c0f5c490117f503d053f73854b757a8c73054c1bb2df8b7457c77c7685a5"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline6x12r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "432bf1635194e084636eba909d7dbacd6063dcec58e71e2f2e9a66d06939c1c3"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline7x13b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "f8c8aaee54b7286871b88fad0a1279d4ef3c1ea9318a0cd46c2755cc3a13aee2"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline7x13r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "adb50837ffa600025aa1ee03de2a3d51ab6b890a8b9babe99cd529843e35f9c2"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline7x14b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "921c78afd22e5ed073655bbc999d172121295c69b19be2cf69c2fb78c189c690"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline7x14r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "b64d88a41947cde674e975817a5c97d6f40689eb817650a4e7790a8bace0b625"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline8x15b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      15.0
+    ],
+    "sha256": "65d1bc475271269032211b70522d9dbb400d15dc8977be52e24a7dd9f4954756"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline8x15r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      15.0
+    ],
+    "sha256": "bbf5b90a6b0a3ab8e07fb1ec67081dc65aaec858f49ed340ce47cde287a5e7e4"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline8x16b-otb.otb",
+    "family": "Tamzen Powerline Bold",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "48a82666dd443cd90be92f64d14ca1a3464d5947766e73f09f2b537214a693df"
+  },
+  {
+    "file": "otb/tamzen-font-tamzenforpowerline8x16r-otb.otb",
+    "family": "Tamzen Powerline",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "5726327257bd175bb37c9ea3bd32810fe88aa2ca8409e8fb23d8b86c367e3f76"
+  },
+  {
+    "file": "otb/Cozette-cozette-sfd.otb",
+    "family": "Cozette",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "c680aa182fd05e8deedd467fe8f1ce32027a8536f6470cbdda321593f41ff4ec"
+  },
+  {
+    "file": "otb/Cozette-cozettecrossedseven-sfd.otb",
+    "family": "Cozette Crossed Seven",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "3c9dbfd2cf68edb712b23d60cddcb4bcd304ac1684c1c36f3d12bcfed4371bb3"
+  },
+  {
+    "file": "otb/scientifica-scientifica-sfd.otb",
+    "family": "Scientifica",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "d9faf4b83e1075bbdd01b2a633b6a83fa542866ad7d98aa61676798cf8d20699"
+  },
+  {
+    "file": "otb/scientifica-scientificabold-sfd.otb",
+    "family": "Scientifica Bold",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "600e3972b8caf5cc97b8c8e5bd19fa2178d81b50485af1e3c399be7495ca1101"
+  },
+  {
+    "file": "otb/scientifica-scientificaitalic-sfd.otb",
+    "family": "Scientifica Italic",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "429651bbd0b79b6fd0789146462d8afbb6bfc39dff01feef08135e0e3158d51c"
+  },
+  {
+    "file": "otb/creep-creep-sfd.otb",
+    "family": "Creep",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "961b7358330c141066b025470a048e3ef0cce0ec43fd584dd1b3ce64e909a916"
+  },
+  {
+    "file": "otb/cherry-cherry-10-b-bdf.otb",
+    "family": "Cherry Bold",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "43a40333dfada8ac0e75b683cb9a703765828d0493772fac8517067705e68163"
+  },
+  {
+    "file": "otb/cherry-cherry-10-r-bdf.otb",
+    "family": "Cherry",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "7ae890759b2b6df1e342b87fd4a9ff54dc89cb4523bfc93d2f29a8d23a0ae5c0"
+  },
+  {
+    "file": "otb/cherry-cherry-11-b-bdf.otb",
+    "family": "Cherry Bold",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "e20c389309356bb25a6f87100d5759da4a3f04e7ad1ba18425d5294beca2361f"
+  },
+  {
+    "file": "otb/cherry-cherry-11-r-bdf.otb",
+    "family": "Cherry",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "1fdcc73a44e1ea3bbed1bffe63444f2acc20ccad2e1ccd5ff1e7c74ee09defcc"
+  },
+  {
+    "file": "otb/cherry-cherry-12-b-bdf.otb",
+    "family": "Cherry Bold",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "daeed2582737bc0d2daf69f758a16ed3e12f959db65f892b83f8e4a7f936b352"
+  },
+  {
+    "file": "otb/cherry-cherry-12-r-bdf.otb",
+    "family": "Cherry",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "b663912e3817d862def6e1e47fc0b0087a3d9762b51297b7af2bf9a88bd57cf4"
+  },
+  {
+    "file": "otb/cherry-cherry-13-b-bdf.otb",
+    "family": "Cherry Bold",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "08feac61b288586ef8a77e18cbbecd7e43f52d6af50c3354726aeba736881cde"
+  },
+  {
+    "file": "otb/cherry-cherry-13-r-bdf.otb",
+    "family": "Cherry",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "6041ffdb2e89db36cbea4b7aaff8860a4a0d386fc575f177d7f15adf0c00c160"
+  },
+  {
+    "file": "otb/kirsch-kirsch-bdf.otb",
+    "family": "Kirsch",
+    "sizes": [
+      16.0
+    ],
+    "sha256": "4df75c13f3f1c36e50ea396d14abdc6a1b13c5ed157d5f709fee9464a0938841"
+  },
+  {
+    "file": "otb/proggyfonts-proggyclean-pcf-gz.otb",
+    "family": "Proggy Clean",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "c4b3266d455ce8b8ecdd8995610635b8b5a2f3e828829740c75c7218ade503b3"
+  },
+  {
+    "file": "otb/proggyfonts-proggycleancp-pcf-gz.otb",
+    "family": "Proggy Clean CP",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "3546dace762498b1ffcac0ae40e8045c26f588c9d7fb039118f29d9d06325eea"
+  },
+  {
+    "file": "otb/proggyfonts-proggycleansz-pcf-gz.otb",
+    "family": "Proggy Clean SZ",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "14a6903f1cc134eac9be025d9bec7856c56f8234ce7e1c26c9358f247526286e"
+  },
+  {
+    "file": "otb/proggyfonts-proggycleanszbp-pcf-gz.otb",
+    "family": "Proggy Clean SZBP",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "adee2b15091c40587cbc81a39ea3709921a3b52d8f3dfe82a12b0400e05bc6e2"
+  },
+  {
+    "file": "otb/proggyfonts-proggycleanszcp-pcf-gz.otb",
+    "family": "Proggy Clean SZCP",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "5c4e66af74d8d2bf228fb5576ec5def02df386332091325e95088095f830bf9d"
+  },
+  {
+    "file": "otb/proggyfonts-proggysmall-pcf-gz.otb",
+    "family": "Proggy Small",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "68154747e51342824132565185fb87dd83e06677b884474f3214ee071610ea3b"
+  },
+  {
+    "file": "otb/proggyfonts-proggysquare-pcf-gz.otb",
+    "family": "Proggy Square",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "914fda82f858243c1647ebb1c154f2f622b48e5cd837cc01f58331f3a21daf80"
+  },
+  {
+    "file": "otb/proggyfonts-proggysquaresz-pcf-gz.otb",
+    "family": "Proggy Square SZ",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "f34ea5cd85aa44cbe04bd3430c70fcedf75d74d6d423d7270947b384ad5356b4"
+  },
+  {
+    "file": "otb/proggyfonts-proggytiny-pcf-gz.otb",
+    "family": "Proggy Tiny",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "7f04256222ffea8d27510d495aaaf6f11ef32f613bec900febf9c703878cceca"
+  },
+  {
+    "file": "otb/proggyfonts-proggytinybold-pcf-gz.otb",
+    "family": "Proggy Tiny Bold",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "08c4f115893582174950409dba92a34b271cc550d4142122949f0e555f731424"
+  },
+  {
+    "file": "otb/proggyfonts-proggytinysz-pcf-gz.otb",
+    "family": "Proggy Tiny SZ",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "a2d114bbe293ed040f070571935ba856c99dfce5ec78adc764bc0a1ef87b24ca"
+  },
+  {
+    "file": "otb/proggyfonts-webbycaps-pcf-gz.otb",
+    "family": "Webby Caps",
+    "sizes": [
+      7.0
+    ],
+    "sha256": "4506e5b315d70d365f0302851c592ee32b77490d08682d900e8b5db4cb30348d"
+  },
+  {
+    "file": "otb/proggyfonts-webbysmall-pcf-gz.otb",
+    "family": "Webby Small",
+    "sizes": [
+      9.0
+    ],
+    "sha256": "9a8324bbd17955dd155a5dd0d43a9a859ead497ced6a281e926f506b545db1cd"
+  },
+  {
+    "file": "otb/gohufont-gohufont-uni-11-bdf.otb",
+    "family": "Gohufont",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "aa0292163afe2d6437343b39d82343684853e74b41d686af302e72832523a195"
+  },
+  {
+    "file": "otb/gohufont-gohufont-uni-11b-bdf.otb",
+    "family": "Gohufont Bold",
+    "sizes": [
+      11.0
+    ],
+    "sha256": "a7dfa17ef27d99b67484ced68ac5bf726244b05167d56f760759e6230f20cdc6"
+  },
+  {
+    "file": "otb/gohufont-gohufont-uni-14-bdf.otb",
+    "family": "Gohufont",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "e8b858c491b7a1ef693d03e26eae871e242883091aafa370dd5b9154f564d908"
+  },
+  {
+    "file": "otb/gohufont-gohufont-uni-14b-bdf.otb",
+    "family": "Gohufont Bold",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "8514c48a04ab53a4b95300192a2d28bf1db773ed84f5678381db9de845e6f3db"
+  },
+  {
+    "file": "otb/profont-profontotb-otb.otb",
+    "family": "ProFont",
+    "sizes": [
+      10.0,
+      11.0,
+      12.0,
+      15.0,
+      17.0,
+      22.0,
+      29.0
+    ],
+    "sha256": "bed8953a52c056129d6d649906fdd877bdcebdd02e27658abd026b18a6ba0759"
+  },
+  {
+    "file": "otb/x11-fixed-10x20-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      20.0
+    ],
+    "sha256": "ce4e4b52d96dadf44ab7c5cdd955745692ae1d398ae7c48013e9f656a92e5f0d"
+  },
+  {
+    "file": "otb/x11-fixed-4x6-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      6.0
+    ],
+    "sha256": "372208144df4f56689b0936486991023febdb274ff6124a480ff1cdd1031280e"
+  },
+  {
+    "file": "otb/x11-fixed-5x7-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      7.0
+    ],
+    "sha256": "7fd062970d77afb6f063f18ba6c76e0c647384b0a816045c03a61f49c38cc4ce"
+  },
+  {
+    "file": "otb/x11-fixed-5x8-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      8.0
+    ],
+    "sha256": "a33ba4538e3176500aa9839e46bb2deead9b23ed47d19792366ddc441318a916"
+  },
+  {
+    "file": "otb/x11-fixed-6x10-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      10.0
+    ],
+    "sha256": "3292a36316842faf39116d774bf0f06401b88909370851dfd8b5e69ff9d1dd12"
+  },
+  {
+    "file": "otb/x11-fixed-6x12-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      12.0
+    ],
+    "sha256": "0b9353d0e8cf0de2fc679be0d08b4780b6d4dad80bf9af7f0841c60b9bb7212d"
+  },
+  {
+    "file": "otb/x11-fixed-6x13-bdf.otb",
+    "family": "X11 Fixed Narrow",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "b72a47e15c7d3003912b6f7e8ba350defeb441f2c9ea85c46574f2f620252934"
+  },
+  {
+    "file": "otb/x11-fixed-6x13b-bdf.otb",
+    "family": "X11 Fixed Narrow Bold",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "9a95ba8660f0636661f9224a5f500b29ab1d7fc0f89b8a9d190bded0fcafd795"
+  },
+  {
+    "file": "otb/x11-fixed-6x13o-bdf.otb",
+    "family": "X11 Fixed Narrow Oblique",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "d2d797a5476c6d64e1544fa726123e6a723e2584ed78e1780d239345e7468a74"
+  },
+  {
+    "file": "otb/x11-fixed-6x9-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      9.0
+    ],
+    "sha256": "21681e2453fb5f267740c80015fd1ead2159b3bcf6bc48fd892737cd250f32f5"
+  },
+  {
+    "file": "otb/x11-fixed-7x13-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "ec72c404282f030bdc0473e65dd8036f491c59db942b5e957532d04a4c23cc48"
+  },
+  {
+    "file": "otb/x11-fixed-7x13b-bdf.otb",
+    "family": "X11 Fixed Bold",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "38599e22eeb1055422e0956d5e5c652cd7d7204484ae803e0f5b1d91e3f14f07"
+  },
+  {
+    "file": "otb/x11-fixed-7x13o-bdf.otb",
+    "family": "X11 Fixed Oblique",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "0cc7a22897c856c61ad0101e582222521b4bfd4fb001ab2efe4545488fd70d39"
+  },
+  {
+    "file": "otb/x11-fixed-7x14-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "73eb9189b914f8e1d139be42a0b899dfb2e8f3daaadde95447581f82add29fe7"
+  },
+  {
+    "file": "otb/x11-fixed-7x14b-bdf.otb",
+    "family": "X11 Fixed Bold",
+    "sizes": [
+      14.0
+    ],
+    "sha256": "16509f79916030a32aea4606e4e42a50076fb05514297826b43ab4a264f15ed5"
+  },
+  {
+    "file": "otb/x11-fixed-8x13-bdf.otb",
+    "family": "X11 Fixed Wide",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "6aef88a52c25c8f2ed8282af459c0959805deaac6123983f428691587c0e37bd"
+  },
+  {
+    "file": "otb/x11-fixed-8x13b-bdf.otb",
+    "family": "X11 Fixed Wide Bold",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "983875a161f9549eff5e45b3bb02a443f1ad38169a621d79ada793bea4162780"
+  },
+  {
+    "file": "otb/x11-fixed-8x13o-bdf.otb",
+    "family": "X11 Fixed Wide Oblique",
+    "sizes": [
+      13.0
+    ],
+    "sha256": "e9a85c56d80ada69312a009cf028fd2c41544f8a7e4c223b0974f6f27731dd69"
+  },
+  {
+    "file": "otb/x11-fixed-9x15-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      15.0
+    ],
+    "sha256": "31b40888008e26dbcef2192ebb53f92efa9850ebc0ba07a01c3ea3cc4f39253c"
+  },
+  {
+    "file": "otb/x11-fixed-9x15b-bdf.otb",
+    "family": "X11 Fixed Bold",
+    "sizes": [
+      15.0
+    ],
+    "sha256": "1f826acf8fb2f6194a9e146a4cb4f7ed7f802440073d162cbb135119b37bd053"
+  },
+  {
+    "file": "otb/x11-fixed-9x18-bdf.otb",
+    "family": "X11 Fixed",
+    "sizes": [
+      18.0
+    ],
+    "sha256": "d09a26dcd46240064edbeff21e06e28340747bde007f3ffb009237990a496902"
+  },
+  {
+    "file": "otb/x11-fixed-9x18b-bdf.otb",
+    "family": "X11 Fixed Bold",
+    "sizes": [
+      18.0
+    ],
+    "sha256": "bcc9293dec96299cb890b9f8b9ef2ac835c1ae927f0c0a5e4063f2a16a7854cc"
+  }
+]

@@ -1,0 +1,8 @@
+/* XPM */
+static char *notebook_page_bottom[] = {
+"3 3 2 1",
+". c #000000",
+"+ c #FFFFFF",
+"+++",
+"+++",
+"..."};

@@ -1,0 +1,14 @@
+/* XPM */
+static char *scrollbar_rail_horizontal_mask[] = {
+"1 9 2 1",
+"  c None",
+"+ c #FFFFFF",
+"+",
+"+",
+"+",
+"+",
+" ",
+"+",
+"+",
+"+",
+"+"};

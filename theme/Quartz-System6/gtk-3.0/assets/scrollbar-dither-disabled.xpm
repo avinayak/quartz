@@ -1,0 +1,7 @@
+/* XPM */
+static char *scrollbar_dither_disabled[] = {
+"4 2 2 1",
+". c #7F7F7F",
+"+ c #FFFFFF",
+"+++.",
+"+.++"};

@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<metacity_theme>
+  <info>
+    <name>Quartz-System6</name>
+    <author>Quartz 5</author>
+    <copyright>Public domain configuration</copyright>
+    <date>2026-08-28</date>
+    <description>Pixel-aligned, layout- and palette-aware Macintosh System 6 window frames.</description>
+  </info>
+
+  <!--
+    The reference titlebar is exactly 19 px high:
+      1 px outer border
+      3 px titlebar-color inset
+      11 px striped/control band
+      3 px titlebar-color inset
+      1 px separator
+
+    Each 11x11 control sits inside a 13x13 allocation.  The extra pixel on
+    each side is the titlebar-color moat between the control and the stripes.
+
+    The visible frame is 1 px on the top/left/right and 2 px on the bottom:
+    a 1 px outline plus an opaque 1 px bottom-only shadow.
+  -->
+  <frame_geometry name="normal" has_title="true"
+                  rounded_top_left="false" rounded_top_right="false"
+                  rounded_bottom_left="false" rounded_bottom_right="false"
+                  title_scale="medium">
+    <distance name="left_width" value="1"/>
+    <distance name="right_width" value="1"/>
+    <distance name="bottom_height" value="2"/>
+    <distance name="left_titlebar_edge" value="1"/>
+    <distance name="right_titlebar_edge" value="1"/>
+    <distance name="title_vertical_pad" value="0"/>
+    <distance name="button_width" value="13"/>
+    <distance name="button_height" value="13"/>
+    <border name="title_border" left="0" right="0" top="0" bottom="0"/>
+    <border name="button_border"
+            left="@QUARTZ_BUTTON_BORDER_X@" right="@QUARTZ_BUTTON_BORDER_X@"
+            top="3" bottom="3"/>
+  </frame_geometry>
+
+  <frame_geometry name="border" has_title="false"
+                  rounded_top_left="false" rounded_top_right="false"
+                  rounded_bottom_left="false" rounded_bottom_right="false">
+    <distance name="left_width" value="1"/>
+    <distance name="right_width" value="1"/>
+    <distance name="bottom_height" value="2"/>
+    <distance name="left_titlebar_edge" value="0"/>
+    <distance name="right_titlebar_edge" value="0"/>
+    <distance name="title_vertical_pad" value="0"/>
+    <distance name="button_width" value="0"/>
+    <distance name="button_height" value="0"/>
+    <border name="title_border" left="0" right="0" top="0" bottom="0"/>
+    <border name="button_border" left="0" right="0" top="0" bottom="0"/>
+  </frame_geometry>
+
+  <draw_ops name="stripe_tile">
+    <line color="#000000" x1="0" y1="0" x2="width" y2="0" width="1"/>
+    <line color="@QUARTZ_TITLEBAR_BG@" x1="0" y1="1" x2="width" y2="1" width="1"/>
+  </draw_ops>
+
+  <draw_ops name="frame_application">
+    <rectangle color="@QUARTZ_APPLICATION_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+  </draw_ops>
+
+  <!-- The last row is an opaque, unblurred one-pixel shadow. The actual
+       window outline remains one pixel at width-1/height-2. -->
+  <draw_ops name="window_border_and_shadow">
+    <rectangle color="#000000" x="0" y="0" width="width-1" height="height-2" filled="false"/>
+    <rectangle color="#000000" x="0" y="height-1" width="width" height="1" filled="true"/>
+  </draw_ops>
+
+  <draw_ops name="titlebar_focused">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+    <tile name="stripe_tile" tile_width="width" tile_height="2"
+          x="2" y="4" width="width-4" height="height-8"/>
+    <line color="#000000" x1="0" y1="height-1" x2="width-1" y2="height-1" width="1"/>
+  </draw_ops>
+
+  <draw_ops name="titlebar_unfocused">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+    <line color="#000000" x1="0" y1="height-1" x2="width-1" y2="height-1" width="1"/>
+  </draw_ops>
+
+  <!-- The renderer positions this title for the selected shared layout. The
+       six-pixel face-color mask clears the stripes around focused text.
+       For an empty title, move the mask below this clipped title piece.
+       Marco clamps zero-size rectangles to 1px, so shrinking it would still
+       leave a mark in the stripes. -->
+  <draw_ops name="title_focused">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@"
+               x="@QUARTZ_TITLE_MASK_X@" y="4+height*(1-(title_width `min` 1))"
+               width="title_width+12" height="height-8" filled="true"/>
+    <title color="#000000"
+           x="@QUARTZ_TITLE_X@"
+           y="(height-title_height)/2"/>
+  </draw_ops>
+
+  <draw_ops name="title_unfocused">
+    <title color="#000000"
+           x="@QUARTZ_TITLE_X@"
+           y="(height-title_height)/2"/>
+  </draw_ops>
+
+  <!-- System 6 close box: an empty 11x11 square inside a 1 px titlebar moat. -->
+  <draw_ops name="close_normal">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+    <rectangle color="#000000" x="1" y="1" width="width-3" height="height-3" filled="false"/>
+  </draw_ops>
+
+  <!-- System 7 uses one native 11x11 burst for both close and zoom.
+       Share it with minimize and GTK client-side window controls. -->
+  <draw_ops name="titlebutton_pressed">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+    <image filename="titlebutton-pressed-system7.xpm" colorize="#000000"
+           x="(width-11)/2" y="(height-11)/2" width="11" height="11"/>
+  </draw_ops>
+
+  <!-- System 6 zoom box: outer square with the six-pixel inner corner. -->
+  <draw_ops name="zoom_normal">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+    <rectangle color="#000000" x="1" y="1" width="width-3" height="height-3" filled="false"/>
+    <line color="#000000" x1="width-6" y1="2" x2="width-6" y2="height-5" width="1"/>
+    <line color="#000000" x1="2" y1="height-6" x2="width-5" y2="height-6" width="1"/>
+  </draw_ops>
+
+  <draw_ops name="minimize_normal">
+    <rectangle color="@QUARTZ_TITLEBAR_BG@" x="0" y="0" width="width" height="height" filled="true"/>
+    <rectangle color="#000000" x="1" y="1" width="width-3" height="height-3" filled="false"/>
+    <line color="#000000" x1="3" y1="height-4" x2="width-4" y2="height-4" width="1"/>
+  </draw_ops>
+
+  <draw_ops name="blank"/>
+
+  <frame_style name="focused" geometry="normal">
+    <piece position="entire_background" draw_ops="frame_application"/>
+    <piece position="titlebar" draw_ops="titlebar_focused"/>
+    <piece position="title" draw_ops="title_focused"/>
+    <piece position="overlay" draw_ops="window_border_and_shadow"/>
+    <button function="close" state="normal" draw_ops="close_normal"/>
+    <button function="close" state="prelight" draw_ops="close_normal"/>
+    <button function="close" state="pressed" draw_ops="titlebutton_pressed"/>
+    <button function="maximize" state="normal" draw_ops="zoom_normal"/>
+    <button function="maximize" state="prelight" draw_ops="zoom_normal"/>
+    <button function="maximize" state="pressed" draw_ops="titlebutton_pressed"/>
+    <button function="minimize" state="normal" draw_ops="minimize_normal"/>
+    <button function="minimize" state="prelight" draw_ops="minimize_normal"/>
+    <button function="minimize" state="pressed" draw_ops="titlebutton_pressed"/>
+    <button function="menu" state="normal" draw_ops="blank"/>
+    <button function="menu" state="prelight" draw_ops="blank"/>
+    <button function="menu" state="pressed" draw_ops="blank"/>
+  </frame_style>
+
+  <frame_style name="unfocused" geometry="normal">
+    <piece position="entire_background" draw_ops="frame_application"/>
+    <piece position="titlebar" draw_ops="titlebar_unfocused"/>
+    <piece position="title" draw_ops="title_unfocused"/>
+    <piece position="overlay" draw_ops="window_border_and_shadow"/>
+    <button function="close" state="normal" draw_ops="blank"/>
+    <button function="close" state="prelight" draw_ops="blank"/>
+    <button function="close" state="pressed" draw_ops="titlebutton_pressed"/>
+    <button function="maximize" state="normal" draw_ops="blank"/>
+    <button function="maximize" state="prelight" draw_ops="blank"/>
+    <button function="maximize" state="pressed" draw_ops="titlebutton_pressed"/>
+    <button function="minimize" state="normal" draw_ops="blank"/>
+    <button function="minimize" state="prelight" draw_ops="blank"/>
+    <button function="minimize" state="pressed" draw_ops="titlebutton_pressed"/>
+    <button function="menu" state="normal" draw_ops="blank"/>
+    <button function="menu" state="prelight" draw_ops="blank"/>
+    <button function="menu" state="pressed" draw_ops="blank"/>
+  </frame_style>
+
+  <frame_style name="border_only" geometry="border">
+    <piece position="entire_background" draw_ops="frame_application"/>
+    <piece position="overlay" draw_ops="window_border_and_shadow"/>
+    <button function="close" state="normal" draw_ops="blank"/>
+    <button function="close" state="pressed" draw_ops="blank"/>
+    <button function="maximize" state="normal" draw_ops="blank"/>
+    <button function="maximize" state="pressed" draw_ops="blank"/>
+    <button function="minimize" state="normal" draw_ops="blank"/>
+    <button function="minimize" state="pressed" draw_ops="blank"/>
+    <button function="menu" state="normal" draw_ops="blank"/>
+    <button function="menu" state="pressed" draw_ops="blank"/>
+  </frame_style>
+
+  <frame_style_set name="normal">
+    <frame focus="yes" state="normal" resize="both" style="focused"/>
+    <frame focus="no" state="normal" resize="both" style="unfocused"/>
+    <frame focus="yes" state="maximized" style="focused"/>
+    <frame focus="no" state="maximized" style="unfocused"/>
+    <frame focus="yes" state="tiled_left" style="focused"/>
+    <frame focus="no" state="tiled_left" style="unfocused"/>
+    <frame focus="yes" state="tiled_right" style="focused"/>
+    <frame focus="no" state="tiled_right" style="unfocused"/>
+    <frame focus="yes" state="shaded" style="focused"/>
+    <frame focus="no" state="shaded" style="unfocused"/>
+    <frame focus="yes" state="maximized_and_shaded" style="focused"/>
+    <frame focus="no" state="maximized_and_shaded" style="unfocused"/>
+  </frame_style_set>
+
+  <frame_style_set name="border">
+    <frame focus="yes" state="normal" resize="both" style="border_only"/>
+    <frame focus="no" state="normal" resize="both" style="border_only"/>
+    <frame focus="yes" state="maximized" style="border_only"/>
+    <frame focus="no" state="maximized" style="border_only"/>
+    <frame focus="yes" state="shaded" style="border_only"/>
+    <frame focus="no" state="shaded" style="border_only"/>
+    <frame focus="yes" state="maximized_and_shaded" style="border_only"/>
+    <frame focus="no" state="maximized_and_shaded" style="border_only"/>
+  </frame_style_set>
+
+  <window type="normal" style_set="normal"/>
+  <window type="dialog" style_set="normal"/>
+  <window type="modal_dialog" style_set="normal"/>
+  <window type="menu" style_set="normal"/>
+  <window type="utility" style_set="normal"/>
+  <window type="border" style_set="border"/>
+
+  <menu_icon function="close" state="normal" draw_ops="close_normal"/>
+  <menu_icon function="maximize" state="normal" draw_ops="zoom_normal"/>
+  <menu_icon function="unmaximize" state="normal" draw_ops="zoom_normal"/>
+  <menu_icon function="minimize" state="normal" draw_ops="minimize_normal"/>
+</metacity_theme>

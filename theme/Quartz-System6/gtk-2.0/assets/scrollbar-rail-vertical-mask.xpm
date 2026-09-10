@@ -1,0 +1,6 @@
+/* XPM */
+static char *scrollbar_rail_vertical_mask[] = {
+"9 1 2 1",
+"  c None",
+"+ c #FFFFFF",
+"++++ ++++"};

@@ -1,0 +1,575 @@
+gtk-theme-name = "Quartz-System6"
+gtk-font-name = "Geneva 12"
+gtk-icon-theme-name = "NineIcons48x"
+gtk-cursor-theme-name = "Quartz-System7-cursors"
+gtk-cursor-theme-size = 16
+gtk-toolbar-style = GTK_TOOLBAR_ICONS
+gtk-button-images = 1
+gtk-menu-images = 1
+gtk-enable-mnemonics = 0
+gtk-auto-mnemonics = 0
+
+gtk-color-scheme = "fg_color:#000000\nbg_color:@QUARTZ_APPLICATION_BG@\nbase_color:@QUARTZ_APPLICATION_BG@\ntext_color:#000000\nselected_bg_color:#000000\nselected_fg_color:@QUARTZ_APPLICATION_BG@\ntooltip_bg_color:#ffecb3\ntooltip_fg_color:#000000"
+
+style "quartz-default" {
+  font_name = "Geneva 12"
+  xthickness = 1
+  ythickness = 1
+
+  fg[NORMAL] = "#000000"
+  fg[ACTIVE] = "@QUARTZ_APPLICATION_BG@"
+  fg[PRELIGHT] = "#000000"
+  fg[SELECTED] = "@QUARTZ_APPLICATION_BG@"
+  fg[INSENSITIVE] = "@QUARTZ_APPLICATION_DISABLED_FG@"
+
+  bg[NORMAL] = "@QUARTZ_APPLICATION_BG@"
+  bg[ACTIVE] = "#000000"
+  bg[PRELIGHT] = "@QUARTZ_APPLICATION_BG@"
+  bg[SELECTED] = "#000000"
+  bg[INSENSITIVE] = "@QUARTZ_APPLICATION_BG@"
+
+  base[NORMAL] = "@QUARTZ_APPLICATION_BG@"
+  base[ACTIVE] = "#000000"
+  base[PRELIGHT] = "@QUARTZ_APPLICATION_BG@"
+  base[SELECTED] = "#000000"
+  base[INSENSITIVE] = "@QUARTZ_APPLICATION_BG@"
+
+  text[NORMAL] = "#000000"
+  text[ACTIVE] = "@QUARTZ_APPLICATION_BG@"
+  text[PRELIGHT] = "#000000"
+  text[SELECTED] = "@QUARTZ_APPLICATION_BG@"
+  text[INSENSITIVE] = "@QUARTZ_APPLICATION_DISABLED_FG@"
+
+  GtkButton::default-border = { 2, 2, 2, 2 }
+  GtkButton::default-outside-border = { 1, 1, 1, 1 }
+  GtkButton::child-displacement-x = 0
+  GtkButton::child-displacement-y = 1
+  GtkButton::displace-focus = 1
+  GtkButton::focus-padding = 0
+  GtkButton::focus-line-width = 1
+  GtkMenu::horizontal-padding = 1
+  GtkMenu::vertical-padding = 1
+  GtkMenuItem::horizontal-padding = 7
+  GtkMenuBar::internal-padding = 0
+  GtkPaned::handle-size = 1
+  GtkRange::slider-width = 14
+  GtkRange::stepper-size = 14
+  GtkRange::stepper-spacing = 0
+  GtkRange::trough-border = 1
+  GtkRange::activate-slider = 1
+  GtkScrollbar::has-backward-stepper = 1
+  GtkScrollbar::has-forward-stepper = 1
+  GtkScrollbar::has-secondary-backward-stepper = 0
+  GtkScrollbar::has-secondary-forward-stepper = 0
+  GtkScrolledWindow::scrollbar-spacing = 0
+  GtkToolbar::internal-padding = 1
+  GtkToolbar::space-size = 1
+  GtkTreeView::horizontal-separator = 1
+  GtkTreeView::vertical-separator = 1
+  GtkWidget::tooltip-radius = @QUARTZ_BORDER_RADIUS_PX@
+  GtkWidget::focus-line-pattern = "\1\1"
+  GtkWidget::focus-padding = 0
+  GtkWidget::focus-line-width = 1
+  GtkWidget::interior-focus = 1
+}
+
+style "quartz-entry" = "quartz-default" {
+  # GtkEntry paints its rectangular text-area child window inside the style
+  # thickness. Keep that window behind every pixel of the generated curve;
+  # otherwise radii above 2px erase the diagonal parts of the frame. Reduce
+  # the separate inner padding by the same amount to preserve control metrics.
+  xthickness = @QUARTZ_GTK2_FRAME_INSET_PX@
+  ythickness = @QUARTZ_GTK2_FRAME_INSET_PX@
+  GtkEntry::inner-border = { @QUARTZ_GTK2_ENTRY_INNER_X_PX@, @QUARTZ_GTK2_ENTRY_INNER_X_PX@, @QUARTZ_GTK2_ENTRY_INNER_Y_PX@, @QUARTZ_GTK2_ENTRY_INNER_Y_PX@ }
+
+  bg[NORMAL] = "@QUARTZ_APPLICATION_BG@"
+  base[NORMAL] = "@QUARTZ_APPLICATION_BG@"
+
+  engine "pixmap" {
+    image {
+      function = SHADOW
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+  }
+}
+
+/* Menubars and their popup commands use Chicago's native 12-point strike.
+ * GTK 2 has no CSS min-height, so two pixels of internal padding compensate
+ * for Chicago's shorter line metric and preserve the measured 25-pixel bar.
+ * The face-colored top row is reserved for the frame's upper separator. */
+style "quartz-menubar" = "quartz-default" {
+  ythickness = 2
+  GtkMenuBar::internal-padding = 2
+  bg[NORMAL] = "@QUARTZ_MENUBAR_BG@"
+  bg[PRELIGHT] = "@QUARTZ_MENUBAR_BG@"
+
+  engine "pixmap" {
+    image {
+      function = BOX
+      detail = "menubar"
+      file = "assets/menubar-app.xpm"
+      border = { 0, 0, 1, 1 }
+      stretch = TRUE
+    }
+  }
+}
+
+/* Raised buttons composite a one-pixel downward copy of the rounded body.
+ * Pressed buttons remove that shadow and move the body into its former row;
+ * GtkButton's child displacement above moves the label/icon with it. */
+style "quartz-button" = "quartz-default" {
+  xthickness = 2
+  ythickness = 2
+  fg[ACTIVE] = "#000000"
+  bg[ACTIVE] = "@QUARTZ_APPLICATION_SHADE@"
+
+  engine "pixmap" {
+    image {
+      function = BOX
+      detail = "buttondefault"
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+    image {
+      function = BOX
+      state = ACTIVE
+      file = "assets/button-shade-pressed.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+    image {
+      function = BOX
+      state = INSENSITIVE
+      file = "assets/button-disabled-raised.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@ }
+      stretch = TRUE
+    }
+    image {
+      function = BOX
+      state = SELECTED
+      file = "assets/button-black-raised.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@ }
+      stretch = TRUE
+    }
+    image {
+      function = BOX
+      file = "assets/button-white-raised.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@ }
+      stretch = TRUE
+    }
+  }
+}
+
+/* GTK 2 represents a latched GtkToggleButton with the same ACTIVE state it
+ * uses for a transient press. Give the component its own persistent raised
+ * treatment so entering/leaving PRELIGHT cannot remove or restore a shadow. */
+style "quartz-toggle-button" = "quartz-button" {
+  GtkButton::child-displacement-y = 0
+  GtkButton::displace-focus = 0
+  fg[ACTIVE] = "#000000"
+  bg[ACTIVE] = "@QUARTZ_APPLICATION_SHADE@"
+
+  engine "pixmap" {
+    image {
+      function = BOX
+      state = ACTIVE
+      file = "assets/button-shade-raised.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@ }
+      stretch = TRUE
+    }
+  }
+}
+
+style "quartz-flat-button" = "quartz-default" {
+  fg[ACTIVE] = "#000000"
+  bg[ACTIVE] = "@QUARTZ_APPLICATION_SHADE@"
+
+  engine "pixmap" {
+    image { function = BOX }
+  }
+}
+
+/* GtkLabel has its own style even when it is the child of a GtkButton. Keep
+ * button text dark over the lightly shaded pressed surface. */
+style "quartz-button-label" = "quartz-default" {
+  fg[ACTIVE] = "#000000"
+}
+
+style "quartz-frame" = "quartz-default" {
+  xthickness = 1
+  ythickness = 1
+
+  engine "pixmap" {
+    image {
+      function = SHADOW
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+    image {
+      function = SHADOW_GAP
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_start_file = "assets/frame-gap-cap.xpm"
+      gap_end_file = "assets/frame-gap-cap.xpm"
+    }
+  }
+}
+
+style "quartz-tooltip" = "quartz-default" {
+  fg[NORMAL] = "#000000"
+  bg[NORMAL] = "#ffecb3"
+  # GTK 2's rounded tooltip painter reads SELECTED as its outline color.
+  bg[SELECTED] = "#000000"
+}
+
+# GTK 2 reuses ACTIVE for several unrelated states. Keep checked labels and
+# inactive notebook tabs dark, just like the lightly shaded push buttons.
+style "quartz-check" = "quartz-default" {
+  fg[ACTIVE] = "#000000"
+}
+
+# GTK 2 otherwise synthesizes beveled indicators. These native-size pixmaps
+# reproduce the flat System 7 square/X checkbox and circular dot radio.
+style "quartz-indicator" = "quartz-check" {
+  GtkCheckButton::indicator-size = 12
+  GtkRadioButton::indicator-size = 12
+
+  engine "pixmap" {
+    image { function = CHECK state = NORMAL shadow = OUT overlay_file = "assets/check-off.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = PRELIGHT shadow = OUT overlay_file = "assets/check-off.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = ACTIVE shadow = OUT overlay_file = "assets/check-off.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = SELECTED shadow = OUT overlay_file = "assets/check-off.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = INSENSITIVE shadow = OUT overlay_file = "assets/check-off-disabled.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = NORMAL shadow = IN overlay_file = "assets/check-on.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = PRELIGHT shadow = IN overlay_file = "assets/check-on.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = ACTIVE shadow = IN overlay_file = "assets/check-on.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = SELECTED shadow = IN overlay_file = "assets/check-on.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = INSENSITIVE shadow = IN overlay_file = "assets/check-on-disabled.xpm" overlay_stretch = FALSE }
+
+    image { function = OPTION state = NORMAL shadow = OUT overlay_file = "assets/radio-off.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = PRELIGHT shadow = OUT overlay_file = "assets/radio-off.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = ACTIVE shadow = OUT overlay_file = "assets/radio-off.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = SELECTED shadow = OUT overlay_file = "assets/radio-off.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = INSENSITIVE shadow = OUT overlay_file = "assets/radio-off-disabled.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = NORMAL shadow = IN overlay_file = "assets/radio-on.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = PRELIGHT shadow = IN overlay_file = "assets/radio-on.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = ACTIVE shadow = IN overlay_file = "assets/radio-on.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = SELECTED shadow = IN overlay_file = "assets/radio-on.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = INSENSITIVE shadow = IN overlay_file = "assets/radio-on-disabled.xpm" overlay_stretch = FALSE }
+  }
+}
+
+style "quartz-notebook" = "quartz-default" {
+  xthickness = 5
+  ythickness = 2
+  fg[ACTIVE] = "#000000"
+  bg[ACTIVE] = "@QUARTZ_APPLICATION_BG@"
+  GtkNotebook::tab-overlap = 1
+
+  engine "pixmap" {
+    # GtkNotebook paints the selected page as NORMAL. Each extension is a
+    # rounded frame with the edge next to its page deliberately left open.
+    image {
+      function = EXTENSION
+      state = NORMAL
+      file = "assets/notebook-tab-left.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, 0, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_side = RIGHT
+    }
+    image {
+      function = EXTENSION
+      state = NORMAL
+      file = "assets/notebook-tab-right.xpm"
+      border = { 0, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_side = LEFT
+    }
+    image {
+      function = EXTENSION
+      state = NORMAL
+      file = "assets/notebook-tab-top.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, 0 }
+      stretch = TRUE
+      gap_side = BOTTOM
+    }
+    image {
+      function = EXTENSION
+      state = NORMAL
+      file = "assets/notebook-tab-bottom.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, 0, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_side = TOP
+    }
+
+    # Inactive tabs remain unboxed, so the selected tab is unambiguous and
+    # the fallback engine cannot reintroduce the square separator strokes.
+    image { function = EXTENSION }
+
+    # BOX_GAP frames the page and erases the segment beside the selected tab.
+    image {
+      function = BOX_GAP
+      detail = "notebook"
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_file = "assets/notebook-gap-vertical.xpm"
+      gap_border = { 0, 0, 1, 1 }
+      gap_side = LEFT
+    }
+    image {
+      function = BOX_GAP
+      detail = "notebook"
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_file = "assets/notebook-gap-vertical.xpm"
+      gap_border = { 0, 0, 1, 1 }
+      gap_side = RIGHT
+    }
+    image {
+      function = BOX_GAP
+      detail = "notebook"
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_file = "assets/notebook-gap-horizontal.xpm"
+      gap_border = { 1, 1, 0, 0 }
+      gap_side = TOP
+    }
+    image {
+      function = BOX_GAP
+      detail = "notebook"
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+      gap_file = "assets/notebook-gap-horizontal.xpm"
+      gap_border = { 1, 1, 0, 0 }
+      gap_side = BOTTOM
+    }
+    image {
+      function = BOX
+      detail = "notebook"
+      file = "assets/frame-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+  }
+}
+
+style "quartz-notebook-label" = "quartz-default" {
+  fg[NORMAL] = "#000000"
+  fg[ACTIVE] = "#000000"
+  fg[PRELIGHT] = "#000000"
+  fg[SELECTED] = "#000000"
+}
+
+# GTK 2 RC styles cannot composite a whole widget. Preblend insensitive scale
+# ink over the application surface to match GTK 3/4's 50-percent opacity.
+style "quartz-scale" = "quartz-default" {
+  xthickness = 0
+  ythickness = 0
+  fg[INSENSITIVE] = "@QUARTZ_APPLICATION_DISABLED_FG@"
+  text[INSENSITIVE] = "@QUARTZ_APPLICATION_DISABLED_FG@"
+  bg[ACTIVE] = "@QUARTZ_APPLICATION_BG@"
+  bg_pixmap[ACTIVE] = "../gtk-3.0/assets/scale-dither.xpm"
+  bg_pixmap[INSENSITIVE] = "../gtk-3.0/assets/scale-dither-disabled.xpm"
+  GtkRange::trough-border = 0
+  GtkScale::slider_length = 1
+  GtkScale::slider_width = 14
+  GtkScale::trough-side-details = 1
+
+  engine "pixmap" {
+    image {
+      function = BOX
+      state = INSENSITIVE
+      detail = "trough-lower"
+      file = "assets/scale-fill-horizontal-disabled.xpm"
+      border = { 3, 3, 0, 0 }
+      stretch = TRUE
+      orientation = HORIZONTAL
+    }
+    image {
+      function = BOX
+      state = ACTIVE
+      detail = "trough-lower"
+      file = "assets/scale-fill-horizontal.xpm"
+      border = { 3, 3, 0, 0 }
+      stretch = TRUE
+      orientation = HORIZONTAL
+    }
+    image {
+      function = BOX
+      state = INSENSITIVE
+      detail = "trough-lower"
+      file = "assets/scale-fill-vertical-disabled.xpm"
+      border = { 0, 0, 3, 3 }
+      stretch = TRUE
+      orientation = VERTICAL
+    }
+    image {
+      function = BOX
+      state = ACTIVE
+      detail = "trough-lower"
+      file = "assets/scale-fill-vertical.xpm"
+      border = { 0, 0, 3, 3 }
+      stretch = TRUE
+      orientation = VERTICAL
+    }
+    image { function = SLIDER detail = "hscale" }
+    image { function = SLIDER detail = "vscale" }
+  }
+}
+
+# Scrollbars tile the shared one-bit dither only across the central 8 pixels;
+# opaque four-pixel gutter masks leave the 12-pixel thumb visibly wider. The
+# native trough-under-steppers switch and trough-local painting keep both
+# arrows on the application face outside the patterned rail in every state;
+# insensitive steppers change only the arrow glyph from black to gray.
+style "quartz-scrollbar" = "quartz-default" {
+  xthickness = 0
+  ythickness = 0
+  bg[ACTIVE] = "@QUARTZ_APPLICATION_BG@"
+  bg[INSENSITIVE] = "@QUARTZ_APPLICATION_BG@"
+  GtkRange::trough-border = 0
+  GtkRange::trough-under-steppers = 0
+  GtkRange::slider-width = 16
+  GtkRange::stepper-size = 16
+
+  engine "pixmap" {
+    image { function = BOX state = ACTIVE detail = "trough" file = "../gtk-3.0/assets/scrollbar-dither.xpm" stretch = FALSE overlay_file = "assets/scrollbar-rail-horizontal-mask.xpm" overlay_border = { 0, 0, 4, 4 } overlay_stretch = TRUE orientation = HORIZONTAL }
+    image { function = BOX state = ACTIVE detail = "trough" file = "../gtk-3.0/assets/scrollbar-dither.xpm" stretch = FALSE overlay_file = "assets/scrollbar-rail-vertical-mask.xpm" overlay_border = { 4, 4, 0, 0 } overlay_stretch = TRUE orientation = VERTICAL }
+    image { function = BOX state = INSENSITIVE detail = "trough" file = "../gtk-3.0/assets/scrollbar-dither-disabled.xpm" stretch = FALSE overlay_file = "assets/scrollbar-rail-horizontal-mask.xpm" overlay_border = { 0, 0, 4, 4 } overlay_stretch = TRUE orientation = HORIZONTAL }
+    image { function = BOX state = INSENSITIVE detail = "trough" file = "../gtk-3.0/assets/scrollbar-dither-disabled.xpm" stretch = FALSE overlay_file = "assets/scrollbar-rail-vertical-mask.xpm" overlay_border = { 4, 4, 0, 0 } overlay_stretch = TRUE orientation = VERTICAL }
+    image { function = BOX detail = "hscrollbar" orientation = HORIZONTAL }
+    image { function = BOX detail = "vscrollbar" orientation = VERTICAL }
+    image {
+      function = SLIDER
+      detail = "slider"
+      file = "assets/scrollbar-thumb.xpm"
+      border = { 4, 4, 4, 4 }
+      stretch = TRUE
+    }
+    image { function = ARROW state = INSENSITIVE detail = "vscrollbar" arrow_direction = UP overlay_file = "../gtk-3.0/assets/arrow-up-disabled.xpm" overlay_stretch = FALSE }
+    image { function = ARROW state = INSENSITIVE detail = "vscrollbar" arrow_direction = DOWN overlay_file = "../gtk-3.0/assets/arrow-down-disabled.xpm" overlay_stretch = FALSE }
+    image { function = ARROW state = INSENSITIVE detail = "hscrollbar" arrow_direction = LEFT overlay_file = "../gtk-3.0/assets/arrow-left-disabled.xpm" overlay_stretch = FALSE }
+    image { function = ARROW state = INSENSITIVE detail = "hscrollbar" arrow_direction = RIGHT overlay_file = "../gtk-3.0/assets/arrow-right-disabled.xpm" overlay_stretch = FALSE }
+    image { function = ARROW detail = "vscrollbar" arrow_direction = UP overlay_file = "../gtk-3.0/assets/arrow-up.xpm" overlay_stretch = FALSE }
+    image { function = ARROW detail = "vscrollbar" arrow_direction = DOWN overlay_file = "../gtk-3.0/assets/arrow-down.xpm" overlay_stretch = FALSE }
+    image { function = ARROW detail = "hscrollbar" arrow_direction = LEFT overlay_file = "../gtk-3.0/assets/arrow-left.xpm" overlay_stretch = FALSE }
+    image { function = ARROW detail = "hscrollbar" arrow_direction = RIGHT overlay_file = "../gtk-3.0/assets/arrow-right.xpm" overlay_stretch = FALSE }
+  }
+}
+
+style "quartz-progress" = "quartz-default" {
+  GtkProgressBar::min-horizontal-bar-height = 6
+  GtkProgressBar::min-vertical-bar-width = 6
+  GtkProgressBar::xspacing = 4
+  GtkProgressBar::yspacing = 4
+  fg[PRELIGHT] = "@QUARTZ_APPLICATION_BG@"
+  bg[PRELIGHT] = "#000000"
+
+  engine "pixmap" {
+    image {
+      function = BOX
+      detail = "trough"
+      file = "assets/box-white-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+    image {
+      function = BOX
+      detail = "bar"
+      file = "assets/box-black-rounded.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
+      stretch = TRUE
+    }
+  }
+}
+
+# GtkMenu asks the engine to paint one BOX named "menu". Use the shared corner
+# radius for that surface and reserve one extra source row for its hard bottom
+# shadow. Combo boxes use GtkMenu for their generated popup and inherit this
+# same general treatment.
+style "quartz-menu" = "quartz-default" {
+  xthickness = @QUARTZ_GTK2_FRAME_INSET_PX@
+  ythickness = @QUARTZ_GTK2_FRAME_INSET_PX@
+
+  engine "pixmap" {
+    image {
+      function = BOX
+      detail = "menu"
+      file = "assets/menu-shadow.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@ }
+      stretch = TRUE
+    }
+  }
+}
+
+style "quartz-menu-item" = "quartz-default" {
+  font_name = "ChiKareGo2 12"
+  fg[PRELIGHT] = "@QUARTZ_APPLICATION_BG@"
+  bg[PRELIGHT] = "#000000"
+  # Generated combo menus render their rows through GtkCellView, which reads
+  # text[] rather than fg[]. Keep every kind of highlighted menu content legible.
+  text[PRELIGHT] = "@QUARTZ_APPLICATION_BG@"
+
+  engine "pixmap" {
+    image { function = CHECK state = NORMAL shadow = OUT overlay_file = "assets/check-off.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = NORMAL shadow = IN overlay_file = "assets/check-on.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = PRELIGHT shadow = OUT overlay_file = "assets/check-off-inverse.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = PRELIGHT shadow = IN overlay_file = "assets/check-on-inverse.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = SELECTED shadow = OUT overlay_file = "assets/check-off-inverse.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = SELECTED shadow = IN overlay_file = "assets/check-on-inverse.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = INSENSITIVE shadow = OUT overlay_file = "assets/check-off-disabled.xpm" overlay_stretch = FALSE }
+    image { function = CHECK state = INSENSITIVE shadow = IN overlay_file = "assets/check-on-disabled.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = NORMAL shadow = OUT overlay_file = "assets/radio-off.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = NORMAL shadow = IN overlay_file = "assets/radio-on.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = PRELIGHT shadow = OUT overlay_file = "assets/radio-off-inverse.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = PRELIGHT shadow = IN overlay_file = "assets/radio-on-inverse.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = SELECTED shadow = OUT overlay_file = "assets/radio-off-inverse.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = SELECTED shadow = IN overlay_file = "assets/radio-on-inverse.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = INSENSITIVE shadow = OUT overlay_file = "assets/radio-off-disabled.xpm" overlay_stretch = FALSE }
+    image { function = OPTION state = INSENSITIVE shadow = IN overlay_file = "assets/radio-on-disabled.xpm" overlay_stretch = FALSE }
+  }
+}
+
+style "quartz-menubar-label" = "quartz-menu-item" {
+  font_name = "ChiKareGo2 12"
+}
+
+class "*" style "quartz-default"
+widget_class "*.<GtkMenuBar>" style "quartz-menubar"
+widget_class "*.<GtkButton>" style "quartz-button"
+widget_class "*.<GtkToggleButton>" style "quartz-toggle-button"
+widget_class "*.<GtkButton>*.<GtkLabel>" style "quartz-button-label"
+widget_class "*.<GtkLinkButton>" style "quartz-flat-button"
+widget_class "*.<GtkToolbar>*.<GtkButton>" style "quartz-flat-button"
+widget_class "*.<GtkEntry>" style "quartz-entry"
+widget_class "*.<GtkTextView>" style "quartz-default"
+widget_class "*.<GtkFrame>" style "quartz-frame"
+widget_class "*.<GtkScrolledWindow>" style "quartz-frame"
+widget_class "*.<GtkCheckButton>" style "quartz-indicator"
+widget_class "*.<GtkRadioButton>" style "quartz-indicator"
+widget_class "*.<GtkCheckButton>.<GtkLabel>" style "quartz-check"
+widget_class "*.<GtkRadioButton>.<GtkLabel>" style "quartz-check"
+widget_class "*.<GtkNotebook>" style "quartz-notebook"
+widget_class "*.<GtkNotebook>.<GtkLabel>" style "quartz-notebook-label"
+widget_class "*.<GtkHScale>" style "quartz-scale"
+widget_class "*.<GtkVScale>" style "quartz-scale"
+widget_class "*.<GtkHScrollbar>" style "quartz-scrollbar"
+widget_class "*.<GtkVScrollbar>" style "quartz-scrollbar"
+widget_class "*.<GtkProgressBar>" style "quartz-progress"
+widget_class "*.<GtkMenu>" style "quartz-menu"
+widget_class "*.<GtkMenuItem>" style "quartz-menu-item"
+widget_class "*<GtkMenuItem>*" style "quartz-menu-item"
+widget_class "*.<GtkMenuItem>.<GtkLabel>" style "quartz-menu-item"
+widget_class "*.<GtkMenuItem>.<GtkAccelLabel>" style "quartz-menu-item"
+widget_class "*.<GtkMenuBar>.<GtkMenuItem>.<GtkLabel>" style "quartz-menubar-label"
+widget_class "*.<GtkMenuBar>.<GtkMenuItem>.<GtkAccelLabel>" style "quartz-menubar-label"
+widget "gtk-tooltip*" style "quartz-tooltip"

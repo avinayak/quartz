@@ -1,0 +1,23 @@
+/* XPM */
+static const char *quartz_system7_arrow[] = {
+"16 16 3 1",
+". c None",
+"X c #000000",
+"o c #FFFFFF",
+"oo..............",
+"oXo.............",
+"oXXo............",
+"oXXXo...........",
+"oXXXXo..........",
+"oXXXXXo.........",
+"oXXXXXXo........",
+"oXXXXXXXo.......",
+"oXXXXXXXXo......",
+"oXXXXXooooo.....",
+"oXXoXXo.........",
+"oXo.oXXo........",
+"oo..oXXo........",
+"o....oXXo.......",
+".....oXXo.......",
+"......ooo......."
+};

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Quartz System 6
+Comment=One-bit System 7 application theme with square windows and configurable rounded controls
+
+[X-GNOME-Metatheme]
+GtkTheme=Quartz-System6
+MetacityTheme=Quartz-System6
+IconTheme=NineIcons48x
+CursorTheme=Quartz-System7-cursors
