@@ -1,5 +1,14 @@
 # Quartz
 
+> [!WARNING]
+> **Experimental software — do not install on real hardware.**
+> Use only in a disposable virtual machine, and take a snapshot before installing.
+> Quartz changes desktop settings and may break your desktop or leave it unusable.
+> Only proceed if you understand what the installer does and know how to recover
+> your environment. **Use entirely at your own risk.** This project is provided
+> as-is, without warranty. I accept no responsibility for damage, data loss, or
+> any other consequences of installing or using it.
+
 A classic Macintosh-inspired desktop theme for **Ubuntu MATE 24.04**. Quartz
 includes shared GTK 2, GTK 3, GTK 4 and Marco themes, icons, bitmap fonts,
 cursors, and Quartz Settings for adjusting the look of your desktop.
