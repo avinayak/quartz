@@ -486,7 +486,7 @@ done
 for frame_asset in \
   frame-1px box-white box-black \
   frame-rounded box-white-rounded box-black-rounded \
-  button-white-raised button-black-raised button-disabled-raised \
+  button-white-raised button-black-raised button-disabled-pressed \
   button-shade-raised button-shade-pressed \
   frame-gap-cap notebook-gap-horizontal notebook-gap-vertical \
   notebook-tab-top notebook-tab-bottom notebook-tab-left notebook-tab-right \
@@ -524,7 +524,7 @@ grep -Fqx \
   "$theme_source_dir/gtk-2.0/assets/button-black-raised.xpm" ||
   die "native GTK 2 button asset has the wrong dimensions: button-black-raised.xpm"
 for rounded_button_asset in \
-  button-white-raised button-disabled-raised \
+  button-white-raised button-disabled-pressed \
   button-shade-raised button-shade-pressed; do
   grep -Fqx \
     "\"$rounded_asset_dimension_px $rounded_button_asset_height_px 3 1\"," \
@@ -538,10 +538,10 @@ for shaded_button_asset in button-shade-raised button-shade-pressed; do
     die "native GTK 2 shaded button does not derive from the application color: $shaded_button_asset.xpm"
 done
 grep -Fqx "\". c $application_disabled_fg\"," \
-  "$theme_source_dir/gtk-2.0/assets/button-disabled-raised.xpm" ||
+  "$theme_source_dir/gtk-2.0/assets/button-disabled-pressed.xpm" ||
   die "native GTK 2 disabled button outline does not derive from the application color"
 grep -Fqx "\"+ c $application_disabled_bg\"," \
-  "$theme_source_dir/gtk-2.0/assets/button-disabled-raised.xpm" ||
+  "$theme_source_dir/gtk-2.0/assets/button-disabled-pressed.xpm" ||
   die "native GTK 2 disabled button face does not derive from the application color"
 for notebook_tab_side in top bottom; do
   grep -Fqx \
@@ -661,7 +661,7 @@ grep -Fqx '  GtkButton::child-displacement-y = 0' "$gtk2_theme_source" ||
 grep -Fqx 'widget_class "*.<GtkToggleButton>" style "quartz-toggle-button"' \
   "$gtk2_theme_source" ||
   die "GTK 2 toggle buttons do not use the persistent raised style"
-grep -Fq 'file = "assets/button-disabled-raised.xpm"' "$gtk2_theme_source" ||
+grep -Fq 'file = "assets/button-disabled-pressed.xpm"' "$gtk2_theme_source" ||
   die "GTK 2 buttons do not use the palette-derived disabled-state box"
 grep -Fqx '  GtkButton::child-displacement-y = 1' "$gtk2_theme_source" ||
   die "GTK 2 button contents do not move down one pixel when pressed"

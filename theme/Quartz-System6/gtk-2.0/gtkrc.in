@@ -143,8 +143,8 @@ style "quartz-button" = "quartz-default" {
     image {
       function = BOX
       state = INSENSITIVE
-      file = "assets/button-disabled-raised.xpm"
-      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@ }
+      file = "assets/button-disabled-pressed.xpm"
+      border = { @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@, @QUARTZ_BORDER_SHADOW_SLICE_PX@, @QUARTZ_BORDER_SLICE_PX@ }
       stretch = TRUE
     }
     image {

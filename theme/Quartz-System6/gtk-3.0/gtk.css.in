@@ -193,7 +193,7 @@ button.radio:hover {
   background-color: @quartz_toggle_on;
 }
 
-/* Only the momentary pointer-down state consumes the physical shadow. */
+/* Pointer-down uses the same lowered geometry as checked and disabled buttons. */
 button:active,
 combobox button:active {
   color: @quartz_ink;
@@ -238,13 +238,15 @@ button.destructive-action:active {
 }
 
 button:disabled,
+button.suggested-action:disabled,
+button.destructive-action:disabled,
 combobox button:disabled {
   color: @quartz_disabled;
   background-color: @quartz_disabled_bg;
   border-color: @quartz_disabled;
-  margin-top: 0;
-  margin-bottom: 1px;
-  box-shadow: 0 1px 0 0 @quartz_disabled;
+  margin-top: 1px;
+  margin-bottom: 0;
+  box-shadow: none;
 }
 
 combobox arrow {
@@ -301,9 +303,9 @@ combobox button:disabled:checked {
   color: @quartz_disabled;
   background-color: @quartz_disabled_bg;
   border-color: @quartz_disabled;
-  margin-top: 0;
-  margin-bottom: 1px;
-  box-shadow: 0 1px 0 0 @quartz_disabled;
+  margin-top: 1px;
+  margin-bottom: 0;
+  box-shadow: none;
 }
 
 combobox button:disabled arrow,

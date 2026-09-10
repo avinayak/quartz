@@ -130,9 +130,10 @@ reload_theme_setting() {
   fallback="$(find_fallback_theme "$component" || true)"
   if [[ -n "$fallback" ]]; then
     gsettings set "$schema" "$key" "$fallback"
-    # Prevent the fallback and restored value from being coalesced into an
-    # unchanged final notification in long-running desktop processes.
-    sleep 0.1
+    # Allow the desktop settings bridge and busy GTK applications to observe
+    # the fallback before restoring Quartz. A 100 ms interval can coalesce
+    # into an unchanged notification and leave the old stylesheet loaded.
+    sleep 2
   fi
   gsettings set "$schema" "$key" "$theme_name"
 }

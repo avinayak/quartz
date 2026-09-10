@@ -248,3 +248,15 @@ minimum and native text spacing; embedded text can increase its allocation.
 Level bars also follow their toolkit baselines in both orientations: GTK 3
 uses a 9px frame for continuous and discrete meters; GTK 4 uses 11px for
 continuous meters and 4px for discrete meters.
+
+Disabled raised buttons retain their muted palette but use a shadowless face
+one pixel lower, matching pressed geometry in GTK 2, GTK 3, and GTK 4. GTK 2's
+pixmap engine can lower the face; its child displacement is tied to an active
+press, so disabled labels/icons retain their toolkit position. Flat controls
+continue to use their existing flat pressed treatment.
+
+Pixel-font matching uses each family's available native weights before
+Fontconfig's system synthesis rules run. This prevents menu labels requesting
+bold from artificially thickening regular-only fonts such as System 7 Chicago,
+while preserving genuine bold faces. The policy applies to shared font
+rendering across applications, including labels with explicit Pango markup.

@@ -10,7 +10,14 @@ spec.loader.exec_module(typography)
 
 
 class TypographyTests(unittest.TestCase):
-    def test_pixel_policy_covers_each_family_without_global_antialias_changes(self):
+    def test_native_weights_keep_real_bold_faces(self):
+        rows = 'Chicago|100\nTerminus|80\nTerminus|200\nTerminus|80\nVariable|[0 210]\n'
+        with patch.object(typography.subprocess, 'check_output', return_value=rows):
+            self.assertEqual(typography.native_font_weights(),
+                             {'Chicago': [100], 'Terminus': [80, 200]})
+
+    @patch.object(typography, 'native_font_weights', return_value={})
+    def test_pixel_policy_covers_each_family_without_global_antialias_changes(self, _weights):
         with tempfile.TemporaryDirectory() as directory:
             with patch.object(typography, 'CONFIG', Path(directory)):
                 typography.install_pixel_rendering_policy(['Terminus', 'ChiKareGo2', 'System 7 Helvetica'])
@@ -68,7 +75,8 @@ class TypographyTests(unittest.TestCase):
         self.assertEqual(fonts['System 7 Geneva 9'], [12])
         self.assertNotIn('DejaVu Sans', fonts)
 
-    def test_apply_preserves_unmanaged_content_and_replaces_previous_roles(self):
+    @patch.object(typography, 'native_font_weights', return_value={'ChiKareGo2': [80], 'Terminus': [80, 200]})
+    def test_apply_preserves_unmanaged_content_and_replaces_previous_roles(self, _weights):
         with tempfile.TemporaryDirectory() as directory:
             home = Path(directory)
             config = home / '.config'

@@ -503,7 +503,7 @@ generate_rounded_xpm() {
 
   case "$asset_kind" in
     frame | white | black | menu-shadow) ;;
-    button-white-raised | button-black-raised | button-disabled-raised | \
+    button-white-raised | button-black-raised | button-disabled-pressed | \
       button-shade-raised | button-shade-pressed) ;;
     *) die "unknown rounded asset kind: $asset_kind" ;;
   esac
@@ -552,10 +552,10 @@ generate_rounded_xpm() {
       is_button = index(kind, "button-") == 1
       is_menu = kind == "menu-shadow"
       is_raised = is_menu || kind == "button-white-raised" || \
-        kind == "button-black-raised" || kind == "button-disabled-raised" || \
+        kind == "button-black-raised" || \
         kind == "button-shade-raised"
-      is_pressed = kind == "button-shade-pressed"
-      is_disabled = kind == "button-disabled-raised"
+      is_pressed = kind == "button-shade-pressed" || kind == "button-disabled-pressed"
+      is_disabled = kind == "button-disabled-pressed"
       has_light_fill = kind == "white" || is_menu || \
         kind == "button-white-raised" || kind == "button-shade-raised" || \
         kind == "button-shade-pressed" || is_disabled
@@ -573,8 +573,8 @@ generate_rounded_xpm() {
         symbol = "button_white_raised_xpm"
       } else if (kind == "button-black-raised") {
         symbol = "button_black_raised_xpm"
-      } else if (kind == "button-disabled-raised") {
-        symbol = "button_disabled_raised_xpm"
+      } else if (kind == "button-disabled-pressed") {
+        symbol = "button_disabled_pressed_xpm"
       } else if (kind == "button-shade-raised") {
         symbol = "button_shade_raised_xpm"
       } else {
@@ -582,8 +582,8 @@ generate_rounded_xpm() {
       }
       colors = has_light_fill ? 3 : 2
       fill = has_light_fill ? "+" : (kind == "frame" ? " " : ".")
-      fill_color = (is_pressed || kind == "button-shade-raised") ? shade : \
-        (is_disabled ? disabled_bg : paper)
+      fill_color = is_disabled ? disabled_bg : \
+        ((is_pressed || kind == "button-shade-raised") ? shade : paper)
       edge_color = is_disabled ? disabled_fg : "#000000"
 
       print "/* XPM */"
@@ -979,8 +979,8 @@ generate_rounded_xpm \
   "$output_dir/gtk-2.0/assets/button-black-raised.xpm" \
   button-black-raised "$border_radius_px" "$border_slice_px"
 generate_rounded_xpm \
-  "$output_dir/gtk-2.0/assets/button-disabled-raised.xpm" \
-  button-disabled-raised "$border_radius_px" "$border_slice_px"
+  "$output_dir/gtk-2.0/assets/button-disabled-pressed.xpm" \
+  button-disabled-pressed "$border_radius_px" "$border_slice_px"
 generate_rounded_xpm \
   "$output_dir/gtk-2.0/assets/button-shade-raised.xpm" \
   button-shade-raised "$border_radius_px" "$border_slice_px"

@@ -68,8 +68,20 @@ def managed(path, block, begin=BEGIN, end=END):
     temporary.replace(path)
 
 
+def native_font_weights():
+    weights = {}
+    rows = subprocess.check_output(['fc-list', '--format', '%{family[0]}|%{weight}\n'], text=True)
+    for row in rows.splitlines():
+        family, values = row.split('|', 1)
+        # The supported pixel families have discrete faces, not variable axes.
+        if re.fullmatch(r'[0-9.]+(?:,[0-9.]+)*', values):
+            weights.setdefault(family, set()).update(float(value) for value in values.split(','))
+    return {family: sorted(values) for family, values in weights.items()}
+
+
 def install_pixel_rendering_policy(families):
     root = ET.Element('fontconfig')
+    weights = native_font_weights()
     # Retire the original Chicago-to-Geneva size fallback. Typography now
     # retains the chosen family and selects its nearest native size.
     legacy = CONFIG / 'fontconfig/conf.d/99-quartz-chikarego2.conf'
@@ -85,6 +97,22 @@ def install_pixel_rendering_policy(families):
         if changed:
             tree.write(legacy, encoding='unicode', xml_declaration=True)
     for family in sorted(set(families)):
+        if family in weights:
+            # User font rules load before the system's 90-synthetic.conf.
+            # Setting embolden=false here alone is therefore insufficient.
+            # Request the nearest actual face before matching, so the later
+            # synthetic rule never sees a missing bold weight to manufacture.
+            match = ET.SubElement(root, 'match', target='pattern')
+            ET.SubElement(ET.SubElement(match, 'test', name='family', compare='eq', qual='any'), 'string').text = family
+            node = ET.SubElement(match, 'edit', name='weight', mode='assign')
+            for lower, upper in zip(weights[family], weights[family][1:]):
+                branch = ET.SubElement(node, 'if')
+                condition = ET.SubElement(branch, 'less_eq')
+                ET.SubElement(condition, 'name').text = 'weight'
+                ET.SubElement(condition, 'double').text = str((lower + upper) / 2)
+                ET.SubElement(branch, 'double').text = str(lower)
+                node = branch
+            ET.SubElement(node, 'double').text = str(weights[family][-1])
         if isinstance(families, dict):
             sizes = sorted(families[family])
             match = ET.SubElement(root, 'match', target='pattern')
@@ -170,7 +198,7 @@ def refresh():
         if fallback is None:
             raise ValueError('No alternate GTK theme is available to refresh the desktop.')
         subprocess.run(['gsettings', 'set', schema, 'gtk-theme', fallback], check=True)
-        time.sleep(0.15)
+        time.sleep(2)
         subprocess.run(['gsettings', 'set', schema, 'gtk-theme', current], check=True)
 
 
